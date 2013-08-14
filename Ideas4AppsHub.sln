@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideas4AppsHub.Test", "Ideas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideas4AppsHub.Domain", "Ideas4AppsHub.Domain\Ideas4AppsHub.Domain.csproj", "{F38A98A4-5E18-48C2-A592-9FEF6A9C686E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideas4AppsHub.MVC", "Ideas4AppsHub.MVC\Ideas4AppsHub.MVC.csproj", "{9186CE7D-CC43-4F36-894D-9F3F970BF3C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideas4AppsHub.Data", "Ideas4AppsHub.Data\Ideas4AppsHub.Data.csproj", "{509C4721-8E91-4601-A637-922194E84637}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{F38A98A4-5E18-48C2-A592-9FEF6A9C686E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F38A98A4-5E18-48C2-A592-9FEF6A9C686E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F38A98A4-5E18-48C2-A592-9FEF6A9C686E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9186CE7D-CC43-4F36-894D-9F3F970BF3C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9186CE7D-CC43-4F36-894D-9F3F970BF3C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9186CE7D-CC43-4F36-894D-9F3F970BF3C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9186CE7D-CC43-4F36-894D-9F3F970BF3C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509C4721-8E91-4601-A637-922194E84637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509C4721-8E91-4601-A637-922194E84637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509C4721-8E91-4601-A637-922194E84637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509C4721-8E91-4601-A637-922194E84637}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
