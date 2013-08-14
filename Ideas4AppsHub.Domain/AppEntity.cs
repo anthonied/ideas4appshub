@@ -11,7 +11,7 @@ namespace Ideas4AppsHub.Domain
         public string TelephoneNumber { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTime? LastUpdate { get; set; }
         public Status Status { get; set; }
     }
 }
