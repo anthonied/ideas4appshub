@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideas4AppsHub.Test", "Ideas4AppsHub.Test\Ideas4AppsHub.Test.csproj", "{3DCCF24A-F596-481A-BD50-FA637D8D7DD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideas4AppsHub.Domain", "Ideas4AppsHub.Domain\Ideas4AppsHub.Domain.csproj", "{F38A98A4-5E18-48C2-A592-9FEF6A9C686E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{3DCCF24A-F596-481A-BD50-FA637D8D7DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DCCF24A-F596-481A-BD50-FA637D8D7DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DCCF24A-F596-481A-BD50-FA637D8D7DD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F38A98A4-5E18-48C2-A592-9FEF6A9C686E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F38A98A4-5E18-48C2-A592-9FEF6A9C686E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F38A98A4-5E18-48C2-A592-9FEF6A9C686E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F38A98A4-5E18-48C2-A592-9FEF6A9C686E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
