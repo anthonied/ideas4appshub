@@ -14,6 +14,6 @@ namespace Ideas4AppsHub.Domain
         public Photo Photo { get; set; }
         public GPS GPS { get; set; }
         public Category Category { get; set; }        
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
     }
 }
