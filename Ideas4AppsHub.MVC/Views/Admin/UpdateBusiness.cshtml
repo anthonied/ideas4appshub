@@ -1,12 +1,11 @@
-﻿@model Ideas4AppsHub.MVC.Models.BusinessModel
-
-@{
-    ViewBag.Title = "ManageBusiness";
+﻿@{
+    ViewBag.Title = "UpdateBusiness";
 }
 
 <div class="page-header">
-    <h2>Manage Business</h2>
+    <h2>Update Business</h2>
 </div>
+
 <div>
     <div style="font-size:  18px">
         <p class="control-label">Business Name:</p>
@@ -51,8 +50,8 @@
     
     <div style="font-size:  18px">
         <p>Status:</p>
-        <select class="btn" id="statusSelect" data-bind="options: statusOptions"></select>
-    </div><br />
+        <select class="btn" id="statusSelect"></select>
+    </div>
 
     <div style="font-size:  18px">
         <p>Tags:</p>
@@ -61,43 +60,15 @@
 
     <div style="font-size:  18px">
         <p>Catagory:</p>
-        <select class="btn" id="catagorySelect" data-bind="options: catagoryOptions"></select>
-    </div><br />
+        <select class="btn" id="catagorySelect"></select>
+    </div>
 
     <div style="font-size:  18px">
-        <p>Active:         <input type="checkbox" id="activeCheckBox"/></p>
-    </div><br />
+        <p>Active:</p>
+        <input type="checkbox" id="activeCheckBox"/>
+    </div>
 
     <div>
-        <button type="button" class="btn btn-primary" data-bind="click: CreateBusiness">Create</button>
+        <button type="button" class="btn btn-primary" onclick="CreateBusiness()">Create</button>
     </div>
 </div>
-
-@section scripts{
-<script>
-    var viewModel = @(Html.Raw(Json.Encode(Model)))
-    
-
-    function manageBusinessViewModel() {
-
-        var self = this;
-        self.statusOptions = ko.observableArray(viewModel.Status);
-        self.catagoryOptions = ko.observableArray(viewModel.Category);
-
-        CreateBusiness = function () {
-            $.post("../Admin/CreateBusiness", { name: businessName.value, description: businessDescription.value, telephone: businessTelephoneNumber.value, address1: businessAddress1.value, address2: businessAddress2.value, address3: businessAddress3.value, postalcode: businessPostalCode.value, status: statusSelect.value, businesshours: businessHours.value, tags: tagsText.value, weburl: businessWebUrl.value, category: catagorySelect.value, active: activeCheckBox.checked },
-                function (response) { handleRegisterResponse(response); });
-        }
-    }
-
-    function handleRegisterResponse(response) {
-        alert(response.isOk);
-    }
-
-    ko.applyBindings(new manageBusinessViewModel(), document.getElementById("bodyDiv"));
-
-    $(document).ready(function (){
-        busyViewModel.IsBusy(false);
-    });
-</script>    
-}

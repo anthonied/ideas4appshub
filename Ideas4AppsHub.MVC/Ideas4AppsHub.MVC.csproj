@@ -195,6 +195,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BusinessModel.cs" />
     <Compile Include="Models\HomeInputModel.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
@@ -351,6 +352,7 @@
     <Content Include="Views\Shared\_busyIndicator.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\ManageBusiness.cshtml" />
+    <Content Include="Views\Admin\UpdateBusiness.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -358,7 +360,16 @@
   <ItemGroup>
     <Content Include="Views\Shared\_html5shiv.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Ideas4AppsHub.Domain\Ideas4AppsHub.Domain.csproj">
+      <Project>{f38a98a4-5e18-48c2-a592-9fef6a9c686e}</Project>
+      <Name>Ideas4AppsHub.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ideas4AppsHub.Repositories\Ideas4AppsHub.Repositories.csproj">
+      <Project>{054e3e18-0b68-420e-8ce1-2b417a56b1b5}</Project>
+      <Name>Ideas4AppsHub.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
