@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideas4AppsHub.MVC", "Ideas4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideas4AppsHub.Data", "Ideas4AppsHub.Data\Ideas4AppsHub.Data.csproj", "{509C4721-8E91-4601-A637-922194E84637}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ideas4AppsHub.Repositories", "Ideas4AppsHub.Repositories\Ideas4AppsHub.Repositories.csproj", "{054E3E18-0B68-420E-8CE1-2B417A56B1B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{509C4721-8E91-4601-A637-922194E84637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{509C4721-8E91-4601-A637-922194E84637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{509C4721-8E91-4601-A637-922194E84637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{054E3E18-0B68-420E-8CE1-2B417A56B1B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{054E3E18-0B68-420E-8CE1-2B417A56B1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{054E3E18-0B68-420E-8CE1-2B417A56B1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{054E3E18-0B68-420E-8CE1-2B417A56B1B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

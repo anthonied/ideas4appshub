@@ -1,12 +1,11 @@
-﻿
-
-@{
-    ViewBag.Title = "ManageBusiness";
+﻿@{
+    ViewBag.Title = "UpdateBusiness";
 }
 
 <div class="page-header">
-    <h2>Manage Business</h2>
+    <h2>Update Business</h2>
 </div>
+
 <div>
     <div style="font-size:  18px">
         <p class="control-label">Business Name:</p>
@@ -73,40 +72,3 @@
         <button type="button" class="btn btn-primary" onclick="CreateBusiness()">Create</button>
     </div>
 </div>
-
-@section scripts{
-<script>
-    ////function manageBusinessViewModel() {
-    ////    var self = this;
-    ////    self.buttonName = ko.observable("Cteate");
-
-    //    function CreateBusiness() {
-    //        $.post("../Admin/CreateBusiness", { name: businessName.value });
-    //   }
-    ////};
-
-    ////ko.applyBindings(new manageBusinessViewModel(), document.getElementById("bodyDiv"));
-    
-        var self = this;
-        self.businessInputName = ko.observable();
-        
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1;
-        var yyyy = today.getFullYear()
-
-        if(dd<10)
-            {dd='0'+dd} 
-        if(mm<10)
-            {mm='0'+mm}
-        today = dd+"/"+mm+"/"+yyyy;
-
-        function CreateBusiness() {
-            $.post("/Admin/CreateBusiness/", { name: businessName.value, description: businessDescription.value, telephone: businessTelephoneNumber.value, address1: businessAddress1.value, address2: businessAddress2.value, address3: businessAddress3.value, postalcode: businessPostalCode.value, status: statusSelect.value, businesshours: businessHours.value, tags: tagsText.value, weburl: businessWebUrl.value, category: catagorySelect.value, active: activeCheckBox.value });
-        }
-    
-    $(document).ready(function (){
-        busyViewModel.IsBusy(false);
-    });
-</script>    
-}
