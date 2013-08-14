@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "ManageBusiness";
+}
+
+<div class="page-header">
+    <h2>Manage Business</h2>
+</div>
+
+<div>
+    <input id="businessName" type="text" size="16"/>
+    <button class="btn btn-primary" data-bind="click: CreateBusiness"></button>
+</div>
+
+@section scripts{
+<script>
+    function manageBusinessViewModel() {
+        var self = this;
+
+        function CreateBusiness() {
+            $.post("../Admin/CreateBusiness", {name: businessName.value});
+        }
+    }
+</script>    
+}
