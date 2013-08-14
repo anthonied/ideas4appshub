@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Ideas4AppsHub.Repositories;
 using System.Collections;
+using System.IO;
 
 namespace Ideas4AppsHub.MVC.Controllers
 {
@@ -21,6 +22,22 @@ namespace Ideas4AppsHub.MVC.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult UploadPhoto(HttpPostedFileWrapper photo)
+        {
+            byte[] _photoInMemory;
+
+            int photoLength = (int)idFile.InputStream.Length;
+            Stream photoStream = idFile.InputStream;
+            _idInMemory = new byte[photoLength];
+            photoStream.Read(_photoInMemory, 0, photoLength);
+
+            var result = new
+            {
+                success = true,
+            };
+            return Json(new { Result = result });
         }
 
         public ActionResult ManageBusiness() 
