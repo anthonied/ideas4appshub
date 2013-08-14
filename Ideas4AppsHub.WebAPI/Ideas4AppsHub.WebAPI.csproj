@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -147,6 +151,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
+    <Compile Include="Controllers\ConnectivityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -194,6 +199,10 @@
     <ProjectReference Include="..\Ideas4AppsHub.Domain\Ideas4AppsHub.Domain.csproj">
       <Project>{f38a98a4-5e18-48c2-a592-9fef6a9c686e}</Project>
       <Name>Ideas4AppsHub.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ideas4AppsHub.Repositories\Ideas4AppsHub.Repositories.csproj">
+      <Project>{295753d0-2455-4936-8ba6-1216226786d6}</Project>
+      <Name>Ideas4AppsHub.Repositories</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ideas4AppsHub.WebAPI.Domain\Ideas4AppsHub.WebAPI.Domain.csproj">
       <Project>{69cdafe1-97bb-4c95-987a-1f61ae92714d}</Project>
