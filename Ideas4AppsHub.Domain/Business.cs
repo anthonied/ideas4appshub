@@ -6,7 +6,8 @@ using System.Text;
 namespace Ideas4AppsHub.Domain
 {
     public class Business:AppEntity
-    {        
+    {
+        
         public string BusinessHours { get; set; }        
         public string Tags { get; set; }
         public string WebUrl { get; set; }

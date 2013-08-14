@@ -44,7 +44,7 @@ namespace Ideas4AppsHub.Test
                 Active = true
             };
 
-            Assert.That(business, Is.Not.Null);        
+            Assert.That(business, Is.Not.Null);          
             
 
         }
