@@ -91,7 +91,7 @@
     }
 
     function handleRegisterResponse(response) {
-        alert(response);
+        alert(response.isOk);
     }
 
     ko.applyBindings(new manageBusinessViewModel(), document.getElementById("bodyDiv"));
