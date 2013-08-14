@@ -1,4 +1,4 @@
-﻿
+﻿@model Ideas4AppsHub.MVC.Models.BusinessModel
 
 @{
     ViewBag.Title = "ManageBusiness";
@@ -51,8 +51,8 @@
     
     <div style="font-size:  18px">
         <p>Status:</p>
-        <select class="btn" id="statusSelect"></select>
-    </div>
+        <select class="btn" id="statusSelect" data-bind="options: statusOptions"></select>
+    </div><br />
 
     <div style="font-size:  18px">
         <p>Tags:</p>
@@ -61,50 +61,41 @@
 
     <div style="font-size:  18px">
         <p>Catagory:</p>
-        <select class="btn" id="catagorySelect"></select>
-    </div>
+        <select class="btn" id="catagorySelect" data-bind="options: catagoryOptions"></select>
+    </div><br />
 
     <div style="font-size:  18px">
-        <p>Active:</p>
-        <input type="checkbox" id="activeCheckBox"/>
-    </div>
+        <p>Active:         <input type="checkbox" id="activeCheckBox"/></p>
+    </div><br />
 
     <div>
-        <button type="button" class="btn btn-primary" onclick="CreateBusiness()">Create</button>
+        <button type="button" class="btn btn-primary" data-bind="click: CreateBusiness">Create</button>
     </div>
 </div>
 
 @section scripts{
 <script>
-    ////function manageBusinessViewModel() {
-    ////    var self = this;
-    ////    self.buttonName = ko.observable("Cteate");
-
-    //    function CreateBusiness() {
-    //        $.post("../Admin/CreateBusiness", { name: businessName.value });
-    //   }
-    ////};
-
-    ////ko.applyBindings(new manageBusinessViewModel(), document.getElementById("bodyDiv"));
+    var viewModel = @(Html.Raw(Json.Encode(Model)))
     
+
+    function manageBusinessViewModel() {
+
         var self = this;
-        self.businessInputName = ko.observable();
-        
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1;
-        var yyyy = today.getFullYear()
+        self.statusOptions = ko.observableArray(viewModel.Status);
+        self.catagoryOptions = ko.observableArray(viewModel.Category);
 
-        if(dd<10)
-            {dd='0'+dd} 
-        if(mm<10)
-            {mm='0'+mm}
-        today = dd+"/"+mm+"/"+yyyy;
-
-        function CreateBusiness() {
-            $.post("/Admin/CreateBusiness/", { name: businessName.value, description: businessDescription.value, telephone: businessTelephoneNumber.value, address1: businessAddress1.value, address2: businessAddress2.value, address3: businessAddress3.value, postalcode: businessPostalCode.value, status: statusSelect.value, businesshours: businessHours.value, tags: tagsText.value, weburl: businessWebUrl.value, category: catagorySelect.value, active: activeCheckBox.value });
+        CreateBusiness = function () {
+            $.post("../Admin/CreateBusiness", { name: businessName.value, description: businessDescription.value, telephone: businessTelephoneNumber.value, address1: businessAddress1.value, address2: businessAddress2.value, address3: businessAddress3.value, postalcode: businessPostalCode.value, status: statusSelect.value, businesshours: businessHours.value, tags: tagsText.value, weburl: businessWebUrl.value, category: catagorySelect.value, active: activeCheckBox.checked },
+                function (response) { handleRegisterResponse(response); });
         }
-    
+    }
+
+    function handleRegisterResponse(response) {
+        alert(response);
+    }
+
+    ko.applyBindings(new manageBusinessViewModel(), document.getElementById("bodyDiv"));
+
     $(document).ready(function (){
         busyViewModel.IsBusy(false);
     });

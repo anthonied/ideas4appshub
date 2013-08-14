@@ -8,7 +8,9 @@ namespace Ideas4AppsHub.MVC.Models
 {
     public class BusinessModel
     {
-        public Status Status { get; set; }
-        public Category Category { get; set; }
+        public List<string> Status { get; set; }
+        public List<string> Category { get; set; }
+
+
     }
 }
