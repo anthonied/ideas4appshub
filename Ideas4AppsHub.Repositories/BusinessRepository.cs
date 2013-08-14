@@ -82,7 +82,7 @@ namespace Ideas4AppsHub.Repositories
                     business_hours = business.BusinessHours,
                     //category = business.Category,
                     description = business.Description,
-                    last_update = business.LastUpdate,
+                    last_update = DateTime.Now,
                     name = business.Name,
                     //photo = business.Photo,
                     //status = business.Status,
@@ -108,7 +108,7 @@ namespace Ideas4AppsHub.Repositories
                 //currentBusiness.category = business.Category;
                 currentBusiness.description = business.Description;
                 currentBusiness.id = business.Id;
-                currentBusiness.last_update = business.LastUpdate;
+                currentBusiness.last_update = DateTime.Now;
                 currentBusiness.name = business.Name;
                 //currentBusiness.photo = business.Photo;
                 currentBusiness.status = business.Status.ToString();
