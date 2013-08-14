@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Ideas4ApssHub.WebAPI.Controllers
 {
-    public class ConnectivityController : ApiController
+    public class ConnectController : ApiController
     {
         //api/Connectivity
         public string Get()
@@ -21,6 +21,8 @@ namespace Ideas4ApssHub.WebAPI.Controllers
                 Data = "Connectivity is good"
             };
             return JsonConvert.SerializeObject(solJsonResult);
+          
+            return "AAAA";
         }
     }
 }
