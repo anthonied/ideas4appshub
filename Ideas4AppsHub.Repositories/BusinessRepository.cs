@@ -80,15 +80,19 @@ namespace Ideas4AppsHub.Repositories
                 {
                     active = business.Active,
                     business_hours = business.BusinessHours,
-                    //category = business.Category,
+                    category = business.Category.ToString(),
                     description = business.Description,
                     last_update = DateTime.Now,
                     name = business.Name,
                     //photo = business.Photo,
-                    //status = business.Status,
+                    status = business.Status.ToString(),
                     tags = business.Tags,
                     telephone_number = business.TelephoneNumber,
-                    weburl = business.WebUrl
+                    weburl = business.WebUrl,
+                    address1 = business.Address.Address1,
+                    address2 = business.Address.Address2,
+                    address3 = business.Address.Address3,
+                    postal_code = business.Address.PostalCode
                 };
                 entityModel.businesses.Add(dataBusiness);
                 if (entityModel.SaveChanges() > 0)

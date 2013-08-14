@@ -26,5 +26,10 @@ namespace Ideas4AppsHub.Data
         public byte[] photo { get; set; }
         public string category { get; set; }
         public Nullable<bool> active { get; set; }
+        public string address1 { get; set; }
+        public string address2 { get; set; }
+        public string address3 { get; set; }
+        public string postal_code { get; set; }
+        public string gps { get; set; }
     }
 }

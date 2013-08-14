@@ -69,8 +69,24 @@
     </div><br />
 
     <div>
+        <p>Business Photo</p><br />
+
+        <form  id="uploadAll" action="../Admin/UploadPhoto" method="post" enctype="multipart/form-data" target="hiddenIframe">
+                        
+            <label for="file">Photo</label>
+            <input type="file" name="photo" style="width:360px" id="photo" />
+            <div hidden>
+                <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" name="submit" value="Laai op" />
+            </div>
+         </form>
+        <iframe id="hiddenIframe" @*style="display:none"*@></iframe>
+    </div>
+    
+    <div>
         <button type="button" class="btn btn-primary" data-bind="click: CreateBusiness">Create</button>
     </div>
+
+
 </div>
 
 @section scripts{
@@ -92,6 +108,7 @@
 
     function handleRegisterResponse(response) {
         alert(response.isOk);
+        $("#uploadPhotoBtn").click();
     }
 
     ko.applyBindings(new manageBusinessViewModel(), document.getElementById("bodyDiv"));
