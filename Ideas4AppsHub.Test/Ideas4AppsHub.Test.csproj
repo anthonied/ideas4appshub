@@ -42,16 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ideas4AppsHub.Domain\Ideas4AppsHub.Domain.csproj">
       <Project>{f38a98a4-5e18-48c2-a592-9fef6a9c686e}</Project>
       <Name>Ideas4AppsHub.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ideas4AppsHub.Repositories\Ideas4AppsHub.Repositories.csproj">
+      <Project>{295753d0-2455-4936-8ba6-1216226786d6}</Project>
+      <Name>Ideas4AppsHub.Repositories</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
