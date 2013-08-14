@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ideas4AppsHub.Domain;
+using Ideas4AppsHub.MVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,12 +18,20 @@ namespace Ideas4AppsHub.MVC.Controllers
             return View();
         }
 
-        public ActionResult ManageBusiness() {
-            return View();
+        public ActionResult ManageBusiness() 
+        {
+            var businessModel = new BusinessModel()
+            {
+                Status = new Status(),
+                Category = new Category(),
+            };
+
+            return View(businessModel);
         }
 
         [HttpPost]
-        public ActionResult CreateBusiness(string name) {
+        public ActionResult CreateBusiness(string name) 
+        {
             return View();
         }
     }

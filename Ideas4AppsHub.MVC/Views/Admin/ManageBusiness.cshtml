@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Ideas4AppsHub.MVC.Models.BusinessModel
+
+@{
     ViewBag.Title = "ManageBusiness";
 }
 
@@ -13,6 +15,8 @@
 
 @section scripts{
 <script>
+    var viewModel = @(Html.Raw(Json.Encode(Model)))
+
     function manageBusinessViewModel() {
         var self = this;
 
