@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>a752cd94-1804-41be-9068-1aee240b3eff</ProjectGuid>
+    <ProjectGuid>{295753D0-2455-4936-8BA6-1216226786D6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ideas4AppsHub.Repositories</RootNamespace>
@@ -33,6 +33,27 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ideas4AppsHub.Data\Ideas4AppsHub.Data.csproj">
+      <Project>{509c4721-8e91-4601-a637-922194e84637}</Project>
+      <Name>Ideas4AppsHub.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ideas4AppsHub.Domain\Ideas4AppsHub.Domain.csproj">
+      <Project>{f38a98a4-5e18-48c2-a592-9fef6a9c686e}</Project>
+      <Name>Ideas4AppsHub.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
