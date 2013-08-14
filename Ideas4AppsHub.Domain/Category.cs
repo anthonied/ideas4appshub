@@ -5,11 +5,9 @@ using System.Text;
 
 namespace Ideas4AppsHub.Domain
 {
-    public class Category
+    public enum Category
     {
-        public Category()
-        {
-            
-        }
+        Other
     }
+
 }

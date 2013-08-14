@@ -7,9 +7,27 @@ namespace Ideas4AppsHub.Domain
 {
     public class GPS
     {
-        public GPS()
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+
+
+        private string _value;
+        public string Value
         {
-            
+            get
+            {
+                _value = String.Format("{0},{1}", Longitude, Latitude);
+                return _value;
+            }
+            set { }
         }
+
+        public void ConvertToLongitudeAndLatitude(string valueFromDb)
+        {
+            string[] values = valueFromDb.Split(',');
+            Longitude = values[0];
+            Latitude = values[1];
+        }
+
     }
 }
