@@ -7,27 +7,41 @@ using System.Web;
 using System.Web.Mvc;
 using Ideas4AppsHub.Repositories;
 using System.Collections;
+using System.IO;
 
 namespace Ideas4AppsHub.MVC.Controllers
 {
    
     public class AdminController : Controller
     {
-        //
-        // GET: /Admin/
-
         BusinessRepository _businessRepository = new BusinessRepository();
 
         public ActionResult Index()
         {
-            var businessModels = new List<BusinessModel>();
             var businesses = _businessRepository.GetAllBusiness();
-
-            businesses.ForEach(business => businessModels.Add(new BusinessModel
+            var businessInfoModel = new BusinessInfoModel()
             {
+                AllBusinesses = businesses
+            };
+            return View(businessInfoModel);
 
-            }));
-            return View(businessModels);
+        }
+
+        public ActionResult UploadPhoto(HttpPostedFileWrapper photo)
+        {
+            if (photo != null)
+            {
+                int photoLength = (int)photo.InputStream.Length;
+                Stream photoStream = photo.InputStream;
+                var _photoInMemory = new byte[photoLength];
+                photoStream.Read(_photoInMemory, 0, photoLength);
+            }
+
+            var result = new
+            {
+                success = true,
+            };
+            return Json(new { Result = result });
         }
 
         public ActionResult ManageBusiness() 
