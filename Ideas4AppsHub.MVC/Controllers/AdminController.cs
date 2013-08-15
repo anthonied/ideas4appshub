@@ -152,7 +152,7 @@ namespace Ideas4AppsHub.MVC.Controllers
 
             var business = new Business()
             {
-                Id = id,
+                Id = Convert.ToInt16(id),
                 Name = name,
                 Description = description,
                 TelephoneNumber = telephone,
@@ -167,7 +167,7 @@ namespace Ideas4AppsHub.MVC.Controllers
                 BusinessHours = businesshours,
                 Tags = tags,
                 WebUrl = weburl,
-                Category = category,
+                Category = (Category)Enum.Parse(typeof(Category), category),
                 GPS = new GPS
                 {
                     Latitude = latitude,

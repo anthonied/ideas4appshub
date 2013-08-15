@@ -100,7 +100,7 @@
 <script>
     var viewModel = @(Html.Raw(Json.Encode(Model)))
 
-    //Businesses = ko.observableArray();
+        
 
     function businessesEditViewModel() {
         var self = this;
@@ -118,47 +118,27 @@
         self.longitudeValue = ko.observable(viewModel.Business.GPS.Longitude);
         self.tagsValue = ko.observable(viewModel.Business.Tags);
         self.isChecked = ko.observable(viewModel.Business.Active);
-        
-    }
+        //alert(self.nameValue());
 
-    UpdateBusiness = function () {
-        $.post("../Admin/UpdateBusiness", {
-            id: viewModel.Business.Id, name: self.nameValue(), description: self.descriptionValue(), telephone: self.telephoneValue(),
-            address1: self.address1Value(), address2: self.address2Value(), address3: self.address3Value(), postalcode: self.postalCodeValue(), status: "Updated",
-            businesshours: self.hoursValue, tags: self.tagsValue, weburl: self.urlValue(), category: catagorySelect.value, active: activeCheckBox.checked,
-            longitude: self.longitudeValue(), latitude: self.latitudeValue()
-        },
-                    function (response) { handleRegisterResponse(response); });
+        UpdateBusiness = function () {            
+            $.post("/Admin/UpdateBusiness",{
+                id: viewModel.Business.Id, name: self.nameValue(), description: self.descriptionValue(), telephone: self.telephoneValue(),
+                address1: self.address1Value(), address2: self.address2Value(), address3: self.address3Value(), postalcode: self.postalCodeValue(), status: "Updated",
+                businesshours: self.hoursValue(), tags: self.tagsValue(), weburl: self.urlValue(), category: catagorySelect.value, active: activeCheckBox.checked,
+                longitude: self.longitudeValue(), latitude: self.latitudeValue()
+            }, function (response) { handleRegisterResponse(response); }
+            );
+        }
     }
 
     guid = ko.observable();
     function handleRegisterResponse(response) {
         //$("#uploadPhotoBtn").click();
-        changeLocation("../Admin/Index/");
+        changeLocation("/Admin");
     }
 
-    //EditBusiness = function (selectedBusiness) {
-    //    changeLocation("../Admin/Edit/" + selectedBusiness.id);
-    //}
-
-    //RemoveBusiness = function (selectedBusiness) {
-    //    $('#myModal').modal();
-    //    $('#btnYes').click(function () {
-    //        $.post("../Admin/RemoveBusiness", { id: selectedBusiness.id },
-    //            function (response) { handleRegisterResponse(response); });
-    //    });
-
-    //}
-
-    //function handleRegisterResponse(response) {
-    //    if (response.isOk)
-    //        document.location.reload();
-    //    //$("#uploadPhotoBtn").click();
-    //}
-
     ko.applyBindings(new businessesEditViewModel(), document.getElementById("bodyDiv"));
-
-    
+        
     $(document).ready(function () {
         busyViewModel.IsBusy(false);
     });
