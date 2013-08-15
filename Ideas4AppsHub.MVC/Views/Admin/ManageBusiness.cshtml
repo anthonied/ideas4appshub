@@ -7,93 +7,111 @@
 <div class="page-header">
     <h2>Manage Business</h2>
 </div>
-<div>
-    <div style="font-size:  18px">
-        <p class="control-label">Business Name:</p>
-        <input id="businessName" type="text" size="16"/>
-    </div><br />
+
+<table>
     
-    <div style="font-size:  18px">
-        <p class="control-label">Business Description:</p>
-        <textarea class="form-control" id="businessDescription"></textarea>
-    </div><br />
+        <tr style="font-size:  16px  ;">
+            <td style="width:200px; class="control-label">Name:</td>
+            <td><input id="businessName" type="text" size="16"/></td>
+        </tr>
 
-    <div style="font-size:  18px">
-        <p class="control-label">Business Address:</p>
-        <div>
-        <input id="businessAddress1" type="text" size="16"/>
-        </div>
-        <input id="businessAddress2" type="text" size="16"/>
-        <div>
-        <input id="businessAddress3" type="text" size="16"/>
-        </div>
-    </div><br />
-
-    <div style="font-size:  18px">
-        <p class="control-label">Business Postal Code:</p>
-        <input id="businessPostalCode" type="text" size="16"/>
-    </div><br />
-
-    <div style="font-size:  18px">
-        <p class="control-label">Business telephone Number:</p>
-        <input id="businessTelephoneNumber" type="text" size="16"/>
-    </div><br />
-
-    <div style="font-size:  18px">
-        <p class="control-label">Business Hours:</p>
-        <input id="businessHours" type="text" size="16"/>
-    </div><br />
-
-    <div style="font-size:  18px">
-        <p class="control-label">Business Webpage Url:</p>
-        <input id="businessWebUrl" type="text" size="16"/>
-    </div><br />
-
-    <div style="font-size:  18px">
-        <p class="control-label">GPS Latitude:</p>
-        <input id="businessGPSLatitude" type="text" size="16"/>
-    </div><br />
-
-    <div style="font-size:  18px">
-        <p class="control-label">GPS Longitude:</p>
-        <input id="businessGPSLongitude" type="text" size="16"/>
-    </div><br />
-
-    <div style="font-size:  18px">
-        <p>Tags:</p>
-        <textarea class="form-control" id="tagsText"></textarea>
-    </div>
-
-    <div style="font-size:  18px">
-        <p>Catagory:</p>
-        <select class="btn" id="catagorySelect" data-bind="options: catagoryOptions"></select>
-    </div><br />
-
-    <div style="font-size:  18px">
-        <p>Active:         <input type="checkbox" id="activeCheckBox"/></p>
-    </div><br />
-
-    <div>
-        <p>Business Photo</p><br />
-
-        <form  id="uploadAll" action="../Admin/UploadPhoto" method="post" enctype="multipart/form-data" target="hiddenIframe">
-                        
-            <label for="file">Photo</label>
-            <input type="file" name="photo" style="width:360px" id="photo" />
-            <input type="hidden" name="id" style="width:350px;" data-bind="value: guid" />
-            <div hidden>
-                <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" name="submit" value="Laai op" />
-            </div>
-         </form>
-        <iframe id="hiddenIframe" @*style="display:none"*@></iframe>
-    </div>
+    <tr></tr>
     
-    <div>
-        <button type="button" class="btn btn-primary" data-bind="click: CreateBusiness">Create</button>
-    </div>
+        <tr style="font-size:  16px">
+            <td  class="control-label">Description:</td>
+            <td><textarea class="form-control" id="businessDescription"></textarea></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Address:</td>            
+            <td><input id="businessAddress1" type="text" size="16"/></td>            
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input id="businessAddress2" type="text" size="16"/>
+            </td>
+        </tr>
+            <tr>
+            <td></td>
+            <td>
+                <input id="businessAddress3" type="text" size="16"/>
+                </td>
+        </tr>
+        
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Code:</td>
+            <td><input id="businessPostalCode" type="text" size="16"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Telephone Number:</td>
+            <td><input id="businessTelephoneNumber" type="text" size="16"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Business Hours:</td>
+            <td><input id="businessHours" type="text" size="16"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Webpage Url:</td>
+            <td><input id="businessWebUrl" type="text" size="16"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td  class="control-label">
+                GPS:
+            </td>
+        </tr>
+        <tr style="font-size:  16px">
+            <td class="control-label">GPS Latitude:</td>
+            <td><input id="businessGPSLatitude" type="text" size="16"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">GPS Longitude:</td>
+            <td><input id="businessGPSLongitude" type="text" size="16"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td>Tags:</td>
+            <td><textarea class="form-control" id="tagsText"></textarea></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td>Catagory:</td>
+            <td><select class="btn" id="catagorySelect" data-bind="options: catagoryOptions"></select></td>
+        </tr>
+
+        <tr></tr>
+        <tr style="font-size:  16px; height:60px">
+            <td>Active:</td>
+            <td><input type="checkbox" id="activeCheckBox"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td>Photo:</td>
+
+            <td><form  id="uploadAll" action="../Admin/UploadPhoto" method="post" enctype="multipart/form-data" target="hiddenIframe">                        
+            
+                <input type="file" name="photo" style="width:360px" id="photo" />
+                <input type="hidden" name="id" style="width:350px;" data-bind="value: guid" />
+                <div hidden>
+                    <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" name="submit" value="Laai op" />
+                </div>
+             </form></td>
+            <iframe id="hiddenIframe" style="display:none"></iframe>
+        </tr>
+    
+        <tr>
+            <td></td>
+            <td><button type="button" class="btn btn-primary" data-bind="click: CreateBusiness">Create</button></td>
+        </tr>
 
 
-</div>
+</table>
 
 @section scripts{
 <script>
@@ -111,8 +129,7 @@
         }
     }
     guid = ko.observable();
-    function handleRegisterResponse(response) {
-        alert(response.isOk);
+    function handleRegisterResponse(response) {        
         guid(response.projectId);
         $("#uploadPhotoBtn").click();
     }
