@@ -11,58 +11,58 @@
 <div>
     <div style="font-size:  18px">
         <p class="control-label">Business Name:</p>
-        <input id="businessName" type="text" size="16"/>
+        <input id="businessName" type="text" size="16" data-bind="value: nameValue, valueUpdate: 'afterkeydown'"/>
     </div><br />
     
     <div style="font-size:  18px">
         <p class="control-label">Business Description:</p>
-        <textarea class="form-control" id="businessDescription"></textarea>
+        <textarea class="form-control" id="businessDescription" data-bind="value: descriptionValue, valueUpdate: 'afterkeydown'"></textarea>
     </div><br />
 
     <div style="font-size:  18px">
         <p class="control-label">Business Address:</p>
         <div>
-        <input id="businessAddress1" type="text" size="16"/>
+        <input id="businessAddress1" type="text" size="16" data-bind="value: address1Value, valueUpdate: 'afterkeydown'"/>
         </div>
-        <input id="businessAddress2" type="text" size="16"/>
+        <input id="businessAddress2" type="text" size="16" data-bind="value: address2Value, valueUpdate: 'afterkeydown'"/>
         <div>
-        <input id="businessAddress3" type="text" size="16"/>
+        <input id="businessAddress3" type="text" size="16" data-bind="value: address3Value, valueUpdate: 'afterkeydown'"/>
         </div>
     </div><br />
 
     <div style="font-size:  18px">
         <p class="control-label">Business Postal Code:</p>
-        <input id="businessPostalCode" type="text" size="16"/>
+        <input id="businessPostalCode" type="text" size="16" data-bind="value: postalCodeValue, valueUpdate: 'afterkeydown'"/>
     </div><br />
 
     <div style="font-size:  18px">
         <p class="control-label">Business telephone Number:</p>
-        <input id="businessTelephoneNumber" type="text" size="16"/>
+        <input id="businessTelephoneNumber" type="text" size="16" data-bind="value: telephoneValue, valueUpdate: 'afterkeydown'"/>
     </div><br />
 
     <div style="font-size:  18px">
         <p class="control-label">Business Hours:</p>
-        <input id="businessHours" type="text" size="16"/>
+        <input id="businessHours" type="text" size="16" data-bind="value: hoursValue, valueUpdate: 'afterkeydown'"/>
     </div><br />
 
     <div style="font-size:  18px">
         <p class="control-label">Business Webpage Url:</p>
-        <input id="businessWebUrl" type="text" size="16"/>
+        <input id="businessWebUrl" type="text" size="16" data-bind="value: urlValue, valueUpdate: 'afterkeydown'"/>
     </div><br />
 
     <div style="font-size:  18px">
         <p class="control-label">GPS Latitude:</p>
-        <input id="businessGPSLatitude" type="text" size="16"/>
+        <input id="businessGPSLatitude" type="text" size="16" data-bind="value: latitudeValue, valueUpdate: 'afterkeydown'"/>
     </div><br />
 
     <div style="font-size:  18px">
         <p class="control-label">GPS Longitude:</p>
-        <input id="businessGPSLongitude" type="text" size="16"/>
+        <input id="businessGPSLongitude" type="text" size="16" data-bind="value: longitudeValue, valueUpdate: 'afterkeydown'"/>
     </div><br />
 
     <div style="font-size:  18px">
         <p>Tags:</p>
-        <textarea class="form-control" id="tagsText"></textarea>
+        <textarea class="form-control" id="tagsText" data-bind="value: tagsValue, valueUpdate: 'afterkeydown'"></textarea>
     </div>
 
     <div style="font-size:  18px">
@@ -71,7 +71,7 @@
     </div><br />
 
     <div style="font-size:  18px">
-        <p>Active:         <input type="checkbox" id="activeCheckBox"/></p>
+        <p>Active:         <input type="checkbox" id="activeCheckBox" data-bind="checked: isChecked"/></p>
     </div><br />
 
     <div>
@@ -90,7 +90,7 @@
     </div>
     
     <div>
-        <button type="button" class="btn btn-primary" data-bind="click: UpdateBusiness">Create</button>
+        <button type="button" class="btn btn-primary" data-bind="click: UpdateBusiness">Update</button>
     </div>
 
 
@@ -104,13 +104,37 @@
 
     function businessesEditViewModel() {
         var self = this;
-        self.catagoryOptions = ko.observable(viewModel.Business)
-
+        self.catagoryOptions = ko.observable(viewModel.Business.CategoriesAsStringList);
+        self.nameValue = ko.observable(viewModel.Business.Name);
+        self.descriptionValue = ko.observable(viewModel.Business.Description);
+        self.address1Value = ko.observable(viewModel.Business.Address.Address1);
+        self.address2Value = ko.observable(viewModel.Business.Address.Address2);
+        self.address3Value = ko.observable(viewModel.Business.Address.Address3);
+        self.postalCodeValue = ko.observable(viewModel.Business.Address.PostalCode);
+        self.telephoneValue = ko.observable(viewModel.Business.TelephoneNumber);
+        self.hoursValue = ko.observable(viewModel.Business.BusinessHours);
+        self.urlValue = ko.observable(viewModel.Business.WebUrl);
+        self.latitudeValue = ko.observable(viewModel.Business.GPS.Latitude);
+        self.longitudeValue = ko.observable(viewModel.Business.GPS.Longitude);
+        self.tagsValue = ko.observable(viewModel.Business.Tags);
+        self.isChecked = ko.observable(viewModel.Business.Active);
+        
     }
 
-    UpdateBusiness = function ()
-    {
+    UpdateBusiness = function () {
+        $.post("../Admin/UpdateBusiness", {
+            id: viewModel.Business.Id, name: self.nameValue(), description: self.descriptionValue(), telephone: self.telephoneValue(),
+            address1: self.address1Value(), address2: self.address2Value(), address3: self.address3Value(), postalcode: self.postalCodeValue(), status: "Updated",
+            businesshours: self.hoursValue, tags: self.tagsValue, weburl: self.urlValue(), category: catagorySelect.value, active: activeCheckBox.checked,
+            longitude: self.longitudeValue(), latitude: self.latitudeValue()
+        },
+                    function (response) { handleRegisterResponse(response); });
+    }
 
+    guid = ko.observable();
+    function handleRegisterResponse(response) {
+        //$("#uploadPhotoBtn").click();
+        changeLocation("../Admin/Index/");
     }
 
     //EditBusiness = function (selectedBusiness) {
@@ -131,7 +155,6 @@
     //        document.location.reload();
     //    //$("#uploadPhotoBtn").click();
     //}
-    guid = ko.observable();
 
     ko.applyBindings(new businessesEditViewModel(), document.getElementById("bodyDiv"));
 
