@@ -36,6 +36,8 @@ namespace Ideas4AppsHub.MVC.Controllers
 
         public ActionResult UploadPhoto(HttpPostedFileWrapper photo, string id)
         {
+            bool isUploaded = false;
+
             if (photo != null)
             {
                 int photoLength = (int)photo.InputStream.Length;
@@ -43,12 +45,12 @@ namespace Ideas4AppsHub.MVC.Controllers
                 var _photoInMemory = new byte[photoLength];
                 photoStream.Read(_photoInMemory, 0, photoLength);
 
-                _businessRepository.AddPhoto(Convert.ToInt16(id), _photoInMemory);
+                isUploaded = _businessRepository.AddPhoto(Convert.ToInt16(id), _photoInMemory);
             }
 
             var result = new
             {
-                success = true,
+                success = isUploaded,
                 
             };
             return Json(new { Result = result });
@@ -141,6 +143,59 @@ namespace Ideas4AppsHub.MVC.Controllers
             };
 
             return new JsonResult { Data = data};
+        }
+
+        [AllowAnonymous]
+        public JsonResult UpdateBusiness(int id, string name, string description, string telephone, string address1, string address2, string address3, string postalcode, string status,
+            string businesshours, string tags, string weburl, string category, bool active, string longitude, string latitude)
+        {
+
+            var business = new Business()
+            {
+                Id = id,
+                Name = name,
+                Description = description,
+                TelephoneNumber = telephone,
+                Address = new Address
+                {
+                    Address1 = address1,
+                    Address2 = address2,
+                    Address3 = address3,
+                    PostalCode = postalcode,
+                },
+                Status = (Status)Enum.Parse(typeof(Status), status),
+                BusinessHours = businesshours,
+                Tags = tags,
+                WebUrl = weburl,
+                Category = category,
+                GPS = new GPS
+                {
+                    Latitude = latitude,
+                    Longitude = longitude
+                },
+                Active = active
+            };
+
+            var projectId = _businessRepository.UpdateBusiness(business);
+
+            object data;
+
+            if (projectId > 0)
+            {
+                data = new
+                {
+                    isOk = true,
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    isOk = false,
+                };
+            }
+
+            return new JsonResult { Data = data };
         }
     }
 }
