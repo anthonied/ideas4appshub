@@ -11,7 +11,7 @@ namespace Ideas4AppsHub.Test
 
     public class Tests
     {
-        [Test]
+        [Test] 
         public void Can_create_appEntity()
         {
             var appEntity = new AppEntity()
