@@ -113,6 +113,7 @@
     guid = ko.observable();
     function handleRegisterResponse(response) {
         alert(response.isOk);
+        guid(response.projectId);
         //$("#uploadPhotoBtn").click();
     }
 
