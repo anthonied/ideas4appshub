@@ -34,7 +34,7 @@ namespace Ideas4AppsHub.MVC.Controllers
             return View(businessModels);
         }
 
-        public ActionResult UploadPhoto(HttpPostedFileWrapper photo)
+        public ActionResult UploadPhoto(HttpPostedFileWrapper photo, string id)
         {
             if (photo != null)
             {
@@ -47,6 +47,7 @@ namespace Ideas4AppsHub.MVC.Controllers
             var result = new
             {
                 success = true,
+                
             };
             return Json(new { Result = result });
         }
@@ -100,11 +101,12 @@ namespace Ideas4AppsHub.MVC.Controllers
                 },
                 Active = active
             };
-            _businessRepository.AddBusiness(business);
+            _businessRepository.AddBusiness(business);            
 
             var data = new
             {
-                isOk = true
+                isOk = true,
+                projectId = 1
             };
 
             return new JsonResult { Data = data };

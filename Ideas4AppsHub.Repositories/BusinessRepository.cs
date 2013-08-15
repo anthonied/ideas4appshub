@@ -64,7 +64,7 @@ namespace Ideas4AppsHub.Repositories
             }
         }
 
-        public bool AddOrUpdateBusiness(Business business)
+        public int AddOrUpdateBusiness(Business business)
         {
             using (var entityModel = new ideas4appsEntities())
             {
@@ -76,7 +76,7 @@ namespace Ideas4AppsHub.Repositories
             }
         }
 
-        public bool AddBusiness(Business business)
+        public int AddBusiness(Business business)
         {
             using (var entityModel = new ideas4appsEntities())
             {
@@ -101,12 +101,14 @@ namespace Ideas4AppsHub.Repositories
 
                 };
                 entityModel.businesses.Add(dataBusiness);
+
                 if (entityModel.SaveChanges() > 0)
-                    return true;
-                return false;
+                    return dataBusiness.id;
+                return 0;
             }
         }
-        public bool UpdateBusiness(Business business)
+
+        public int UpdateBusiness(Business business)
         {
             using (var entityModel = new ideas4appsEntities())
             {
@@ -131,8 +133,8 @@ namespace Ideas4AppsHub.Repositories
                 currentBusiness.weburl = business.WebUrl;
                 currentBusiness.gps = business.GPS.Value;
                 if (entityModel.SaveChanges() > 0)
-                    return true;
-                return false;
+                    return currentBusiness.id;
+                return -1;
             }
         }
 

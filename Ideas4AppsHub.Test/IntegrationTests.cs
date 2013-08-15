@@ -42,8 +42,8 @@ namespace Ideas4AppsHub.Test
                 WebUrl = "oaeu",
                 Name = "Johnny Crashy",
             };
-            bool added = new BusinessRepository().AddOrUpdateBusiness(business);
-            Assert.That(added, Is.True);
+            var idAdded = new BusinessRepository().AddOrUpdateBusiness(business);
+            Assert.That(idAdded, Is.Not.EqualTo(-1));
         }
         [Test]
         public void CanUpdateBusinessFromDB()
@@ -64,7 +64,7 @@ namespace Ideas4AppsHub.Test
                 WebUrl = "oaeu",
                 Name = "Johnny Crashy 2",
             };
-            bool added = new BusinessRepository().AddOrUpdateBusiness(business);
+            var idAdded = new BusinessRepository().AddOrUpdateBusiness(business);
             business = new Business()
             {
                 Id  = 2,
@@ -82,8 +82,8 @@ namespace Ideas4AppsHub.Test
                 WebUrl = "oaeu",
                 Name = "Johnny Crashy 3",
             };
-            bool updated = new BusinessRepository().AddOrUpdateBusiness(business);
-            Assert.That(updated, Is.True);
+            var idUpdated = new BusinessRepository().AddOrUpdateBusiness(business);
+            Assert.That(idUpdated, Is.Not.EqualTo(-1));
         }
         [Test]
         public void CanRemoveBusinessFromDB()
