@@ -34,7 +34,7 @@
 				<div class="navbar navbar-inverse navbar-fixed-top" id="navBarDiv">
 					<div class="navbar-inner">
 						<div class="container-fluid">
-							<a class="brand" href="@Href("~/")">MVC 4 Razor Application</a>
+							<a class="brand" href="@Href("~/")">Ideas4Apps</a>
 								<div>
 									<ul class="nav" data-bind="foreach: NavBarLeft">
 										<li data-bind="visible: !DropDown.length, css: {active: $parent.SelectedItemId() == Id}">
@@ -118,31 +118,31 @@
 			{
 				navbarLeft:
 				[
-					{Id: 1, Text: "Home", HRef: "@Href("~/")", Role: "", DataToggle: "", DropDown: []},
-					{Id: 2, Text: "About Us", HRef: "#AboutModal", Role: "button", DataToggle: "modal", DropDown: []},
-					{Id: 3, Text: "Contact Us", HRef: "@Href("~/Home/Contact/")", Role: "", DataToggle: "", DropDown: []},
-					{Id: 6, Text: "Manage System", HRef: "#", Role: "", DataToggle: "dropdown",
+					{Id: 1, Text: "Home", HRef: "@Href("~/")", Role: "", DataToggle: "", DropDown: []},					
+					{Id: 6, Text: "Administration", HRef: "#", Role: "", DataToggle: "dropdown",
 						DropDown:
 						[
-							{Id: 7, Text: "Manage Business", HRef: "@Href("~/Admin/")", Role: "", DataToggle: ""},
+							{ Id: 7, Text: "View All Business", HRef: "@Href("~/Admin/")", Role: "", DataToggle: "" },
+                            { Id: 8, Text: "Add New Business", HRef: "@Href("~/Admin/ManageBusiness")", Role: "", DataToggle: ""},
 						]
 					},
 				],
 				navbarRight:
 				[
-					{Id: 4, Text: "Register", HRef: "@Href("~/Account/Register")", Role: "", DataToggle: "", DropDown: []},
-					{Id: 5, Text: "Login", HRef: "@Href("~/Account/Login")", Role: "", DataToggle: "", DropDown: []},
+					@*{Id: 4, Text: "Register", HRef: "@Href("~/Account/Register")", Role: "", DataToggle: "", DropDown: []},
+					{Id: 5, Text: "Login", HRef: "@Href("~/Account/Login")", Role: "", DataToggle: "", DropDown: []},*@
 				],
 				sidebar:
 				[
 					{Id: 6, Text: "Manage", HRef: "", Role: "", DataToggle: "", IsHeader: true},
-					{ Id: 7, Text: "Manage Business", HRef: "@Href("~/Admin/")", Role: "", DataToggle: "", IsHeader: false },
+					{ Id: 7, Text: "View All Business", HRef: "@Href("~/Admin/")", Role: "", DataToggle: "", IsHeader: false },
+                    { Id: 8, Text: "Add New Business", HRef: "@Href("~/Admin/ManageBusiness")", Role: "", DataToggle: "", IsHeader: false },
 				],
 				navPills:
 				[
-					{Id: 1, Text: "Home", HRef: "@Href("~/")", Role: "", DataToggle: ""},
+@*					{Id: 1, Text: "Home", HRef: "@Href("~/")", Role: "", DataToggle: ""},
 					{Id: 2, Text: "About Us", HRef: "#AboutModal", Role: "button", DataToggle: "modal"},
-					{Id: 3, Text: "Contact Us", HRef: "@Href("~/Home/Contact/")", Role: "", DataToggle: ""},
+					{Id: 3, Text: "Contact Us", HRef: "@Href("~/Home/Contact/")", Role: "", DataToggle: ""},*@
 				],
 			};
 
