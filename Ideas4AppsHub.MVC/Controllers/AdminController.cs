@@ -14,24 +14,28 @@ namespace Ideas4AppsHub.MVC.Controllers
    
     public class AdminController : Controller
     {
-        //
-        // GET: /Admin/
-
         BusinessRepository _businessRepository = new BusinessRepository();
 
         public ActionResult Index()
         {
-            return View();
+            var businesses = _businessRepository.GetAllBusiness();
+            var businessInfoModel = new BusinessInfoModel()
+            {
+                AllBusinesses = businesses
+            };
+            return View(businessInfoModel);
+
         }
 
         public ActionResult UploadPhoto(HttpPostedFileWrapper photo)
         {
-            byte[] _photoInMemory;
-
-            int photoLength = (int)idFile.InputStream.Length;
-            Stream photoStream = idFile.InputStream;
-            _idInMemory = new byte[photoLength];
-            photoStream.Read(_photoInMemory, 0, photoLength);
+            if (photo != null)
+            {
+                int photoLength = (int)photo.InputStream.Length;
+                Stream photoStream = photo.InputStream;
+                var _photoInMemory = new byte[photoLength];
+                photoStream.Read(_photoInMemory, 0, photoLength);
+            }
 
             var result = new
             {
