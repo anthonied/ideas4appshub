@@ -42,6 +42,8 @@ namespace Ideas4AppsHub.MVC.Controllers
                 Stream photoStream = photo.InputStream;
                 var _photoInMemory = new byte[photoLength];
                 photoStream.Read(_photoInMemory, 0, photoLength);
+
+                _businessRepository.AddPhoto(Convert.ToInt16(id), _photoInMemory);
             }
 
             var result = new
@@ -101,13 +103,25 @@ namespace Ideas4AppsHub.MVC.Controllers
                 },
                 Active = active
             };
-            _businessRepository.AddBusiness(business);            
+            var businessId = _businessRepository.AddBusiness(business);
 
-            var data = new
+            object data;
+
+            if (businessId != 0)
             {
-                isOk = true,
-                projectId = 1
-            };
+                data = new
+                {
+                    isOk = true,
+                    projectId = businessId
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    isOk = false
+                };
+            }
 
             return new JsonResult { Data = data };
         }

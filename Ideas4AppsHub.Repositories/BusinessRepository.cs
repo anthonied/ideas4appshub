@@ -153,5 +153,23 @@ namespace Ideas4AppsHub.Repositories
                 return false;
             }
         }
+
+        public bool AddPhoto(int projectId, byte[] photo)
+        {
+            using (var entityModel = new ideas4appsEntities())
+            {
+                var selectedBusiness = (from bus in entityModel.businesses
+                                            where bus.id == projectId
+                                            select bus).FirstOrDefault();
+
+                if (selectedBusiness == null) return false;
+
+                selectedBusiness.photo = photo;
+
+                if (entityModel.SaveChanges() > 0)
+                    return true;
+                return false;                 
+            }
+        }
     }
 }

@@ -80,7 +80,7 @@
                         
             <label for="file">Photo</label>
             <input type="file" name="photo" style="width:360px" id="photo" />
-            <input type="hidden" name="businessId" style="width:350px;" data-bind="value: guid" />
+            <input type="hidden" name="id" style="width:350px;" data-bind="value: guid" />
             <div hidden>
                 <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" name="submit" value="Laai op" />
             </div>
@@ -114,7 +114,7 @@
     function handleRegisterResponse(response) {
         alert(response.isOk);
         guid(response.projectId);
-        //$("#uploadPhotoBtn").click();
+        $("#uploadPhotoBtn").click();
     }
 
     ko.applyBindings(new manageBusinessViewModel(), document.getElementById("bodyDiv"));

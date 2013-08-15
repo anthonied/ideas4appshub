@@ -24,6 +24,10 @@ namespace Ideas4AppsHub.Domain
 
         public void ConvertToLongitudeAndLatitude(string valueFromDb)
         {
+            if (valueFromDb == null) return;
+
+            if (valueFromDb.Length < 5) return;
+
             string[] values = valueFromDb.Split(',');
             Longitude = values[0];
             Latitude = values[1];
