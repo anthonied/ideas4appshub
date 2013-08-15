@@ -353,9 +353,9 @@
     <Content Include="Scripts\Custom\Web.config" />
     <None Include="Scripts\jquery-2.0.2.min.map" />
     <Content Include="Views\Shared\_busyIndicator.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\ManageBusiness.cshtml" />
     <Content Include="Views\Admin\UpdateBusiness.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

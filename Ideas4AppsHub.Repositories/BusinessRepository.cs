@@ -92,7 +92,9 @@ namespace Ideas4AppsHub.Repositories
                     address1 = business.Address.Address1,
                     address2 = business.Address.Address2,
                     address3 = business.Address.Address3,
-                    postal_code = business.Address.PostalCode
+                    postal_code = business.Address.PostalCode,
+                    gps = business.GPS.Value
+
                 };
                 entityModel.businesses.Add(dataBusiness);
                 if (entityModel.SaveChanges() > 0)

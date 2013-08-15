@@ -1,5 +1,78 @@
-﻿@{
+﻿@model Ideas4AppsHub.MVC.Models.BusinessInfoModel
+
+<style>
+    th { text-align: left }
+</style>
+
+@{
     ViewBag.Title = "Index";
 }
+<div class="form-horizontal">
+    <h2>Manage Businesses</h2>
 
-<h2>Index</h2>
+    <p>
+        @Html.ActionLink("Add New Business", "ManageBusiness")
+    </p>
+
+    <table class="table table-condensed table-hover table-no-border">
+        <thead>
+            <tr>
+                <th>Business Name</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: Business">
+            <tr>
+                <td data-bind="text: Name"></td>
+                <td><a href="#" class="btn btn-primary" data-bind="click: EditBusiness">Edit</a></td>
+                <td><a href="#" class="btn btn-primary" data-bind="click: RemoveBusiness">Remove</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="myModal" class="modal hide">
+    <div class="modal-header">
+         <h3>Delete</h3>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to remove?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" id="btnYes" class="btn danger">Yes</a>
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn secondary">No</a>
+    </div>
+</div>
+
+@section scripts{
+<script>
+    var viewModel = @(Html.Raw(Json.Encode(Model)))
+    
+    function businessesIndexViewModel() {
+
+        var self = this;
+        self.Business = ko.observableArray(viewModel.AllBusinesses);
+        
+    }
+
+    EditBusiness = function (business) {
+        changeLocation("/Admin/Edit/" + business.Id);
+    }
+
+    RemoveBusiness = function (business) {
+        $('#myModal').modal();
+        $('#btnYes').click(function () {
+            changeLocation("/Admin/Delete/" + business.Id);
+        });
+
+    }
+    
+    ko.applyBindings(new businessesIndexViewModel(), document.getElementById("bodyDiv"));
+
+
+    $(document).ready(function (){
+        busyViewModel.IsBusy(false);
+    });
+</script>    
+}

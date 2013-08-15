@@ -57,7 +57,7 @@ namespace Ideas4AppsHub.MVC.Controllers
 
         [AllowAnonymous]
         public JsonResult CreateBusiness(string name, string description, string telephone, string address1, string address2, string address3, string postalcode, string status, 
-            string businesshours, string tags, string weburl, string category, bool active) 
+            string businesshours, string tags, string weburl, string category, bool active, string longitude, string latitude) 
         {
             var business = new Business()
             {
@@ -76,6 +76,11 @@ namespace Ideas4AppsHub.MVC.Controllers
                 Tags = tags,
                 WebUrl = weburl,
                 Category = (Category)Enum.Parse(typeof(Category), category),
+                GPS = new GPS
+                {
+                    Latitude = latitude,
+                    Longitude = longitude
+                },
                 Active = active
             };
             _businessRepository.AddBusiness(business);

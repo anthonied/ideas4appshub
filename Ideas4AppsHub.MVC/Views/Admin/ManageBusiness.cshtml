@@ -48,10 +48,15 @@
         <p class="control-label">Business Webpage Url:</p>
         <input id="businessWebUrl" type="text" size="16"/>
     </div><br />
-    
+
     <div style="font-size:  18px">
-        <p>Status:</p>
-        <select class="btn" id="statusSelect" data-bind="options: statusOptions"></select>
+        <p class="control-label">GPS Latitude:</p>
+        <input id="businessGPSLatitude" type="text" size="16"/>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p class="control-label">GPS Longitude:</p>
+        <input id="businessGPSLongitude" type="text" size="16"/>
     </div><br />
 
     <div style="font-size:  18px">
@@ -75,6 +80,7 @@
                         
             <label for="file">Photo</label>
             <input type="file" name="photo" style="width:360px" id="photo" />
+            <input type="hidden" name="businessId" style="width:350px;" data-bind="value: guid" />
             <div hidden>
                 <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" name="submit" value="Laai op" />
             </div>
@@ -97,18 +103,17 @@
     function manageBusinessViewModel() {
 
         var self = this;
-        self.statusOptions = ko.observableArray(viewModel.Status);
         self.catagoryOptions = ko.observableArray(viewModel.Category);
 
         CreateBusiness = function () {
-            $.post("../Admin/CreateBusiness", { name: businessName.value, description: businessDescription.value, telephone: businessTelephoneNumber.value, address1: businessAddress1.value, address2: businessAddress2.value, address3: businessAddress3.value, postalcode: businessPostalCode.value, status: statusSelect.value, businesshours: businessHours.value, tags: tagsText.value, weburl: businessWebUrl.value, category: catagorySelect.value, active: activeCheckBox.checked },
+            $.post("../Admin/CreateBusiness", { name: businessName.value, description: businessDescription.value, telephone: businessTelephoneNumber.value, address1: businessAddress1.value, address2: businessAddress2.value, address3: businessAddress3.value, postalcode: businessPostalCode.value, status: "New", businesshours: businessHours.value, tags: tagsText.value, weburl: businessWebUrl.value, category: catagorySelect.value, active: activeCheckBox.checked, longitude: businessGPSLongitude.value, latitude: businessGPSLatitude.value},
                 function (response) { handleRegisterResponse(response); });
         }
     }
-
+    guid = ko.observable();
     function handleRegisterResponse(response) {
         alert(response.isOk);
-        $("#uploadPhotoBtn").click();
+        //$("#uploadPhotoBtn").click();
     }
 
     ko.applyBindings(new manageBusinessViewModel(), document.getElementById("bodyDiv"));
