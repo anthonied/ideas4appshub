@@ -16,7 +16,7 @@ namespace Ideas4AppsHub.Repositories
                 {
                     Active = bus.active,
                     BusinessHours = bus.business_hours,
-                    Category = bus.category,
+                    Category = (Category)Enum.Parse(typeof(Category), bus.category),
                     Description = bus.description,
                     Id = bus.id,
                     LastUpdate = bus.last_update,
