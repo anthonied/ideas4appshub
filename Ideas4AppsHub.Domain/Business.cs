@@ -13,7 +13,18 @@ namespace Ideas4AppsHub.Domain
         public Address Address { get; set; }
         public Photo Photo { get; set; }
         public GPS GPS { get; set; }
-        public Category Category { get; set; }        
+        private Category _Category { get; set; }
+        public string Category 
+        {
+            get
+            {
+                return _Category.ToString();
+            }
+            set
+            {
+                _Category = (Category)Enum.Parse(typeof(Category), value);
+            }
+        }
         public bool? Active { get; set; }
     }
 }

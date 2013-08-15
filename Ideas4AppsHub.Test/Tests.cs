@@ -39,7 +39,7 @@ namespace Ideas4AppsHub.Test
                 Address = new Address(),
                 Photo = new Photo(),
                 GPS = new GPS(),
-                Category = new Category(),
+                Category = "Other",
                 Status = Status.New,
                 Active = true
             };

@@ -8,7 +8,6 @@ namespace Ideas4AppsHub.MVC.Models
 {
     public class BusinessInfoModel
     {
-        public List<Business> AllBusinesses { get; set; }
-
+        public Business Business { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Ideas4AppsHub.MVC.Models.BusinessInfoModel
+﻿@model IEnumerable<Ideas4AppsHub.MVC.Models.BusinessInfoModel>
 
 <style>
     th { text-align: left }
@@ -22,11 +22,20 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody data-bind="foreach: Business">
+        @*<tbody data-bind="foreach: Businesses">
+            <!-- ko if: status !== 2 -->
             <tr>
-                <td data-bind="text: Name"></td>
+                <td data-bind="text: name"></td>
                 <td><a href="#" class="btn btn-primary" data-bind="click: EditBusiness">Edit</a></td>
                 <td><a href="#" class="btn btn-primary" data-bind="click: RemoveBusiness">Remove</a></td>
+            </tr>
+            <!-- /ko -->
+        </tbody>*@
+        <tbody data-bind="foreach: Businesses">
+            <tr>
+                <td data-bind="text: name"></td>
+                <td><a href="#" class="btn btn-primary" data-bind="selectedBusiness: this,click: EditBusiness">Edit</a></td>
+                <td><a href="#" class="btn btn-primary" data-bind="selectedBusiness: this, click: RemoveBusiness">Remove</a></td>
             </tr>
         </tbody>
     </table>
@@ -49,25 +58,36 @@
 <script>
     var viewModel = @(Html.Raw(Json.Encode(Model)))
     
-    function businessesIndexViewModel() {
+    Businesses = ko.observableArray();
 
-        var self = this;
-        self.Business = ko.observableArray(viewModel.AllBusinesses);
-        
+    function businessesIndexViewModel()
+    {
+        for (var i = 0 ; i < viewModel.length ; i++)
+        {
+            if (viewModel[i].Business.StatusAsString != "Deleted")
+            Businesses.push({id: viewModel[i].Business.Id, name: viewModel[i].Business.Name });
+        }
     }
 
-    EditBusiness = function (business) {
-        changeLocation("/Admin/Edit/" + business.Id);
+    EditBusiness = function (selectedBusiness) {
+        changeLocation("../Admin/Edit/" + selectedBusiness.id);
     }
 
-    RemoveBusiness = function (business) {
+    RemoveBusiness = function (selectedBusiness) {
         $('#myModal').modal();
         $('#btnYes').click(function () {
-            changeLocation("/Admin/Delete/" + business.Id);
+            $.post("../Admin/RemoveBusiness", { id: selectedBusiness.id },
+                function (response) { handleRegisterResponse(response); });
         });
 
     }
     
+    function handleRegisterResponse(response) {
+        if (response.isOk)
+            document.location.reload();
+        //$("#uploadPhotoBtn").click();
+    }
+
     ko.applyBindings(new businessesIndexViewModel(), document.getElementById("bodyDiv"));
 
 

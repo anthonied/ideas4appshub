@@ -13,5 +13,12 @@ namespace Ideas4AppsHub.Domain
         public string Description { get; set; }
         public DateTime? LastUpdate { get; set; }
         public Status Status { get; set; }
+        public string StatusAsString
+        {
+            get 
+            {
+                return Status.ToString();
+            }
+        }
     }
 }

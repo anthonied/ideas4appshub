@@ -12,14 +12,11 @@ namespace Ideas4AppsHub.Repositories
     {
         private Business CreateDomainBusiness(business bus)
         {
-            return new Business()
+            var business = new Business()
                 {
                     Active = bus.active,
                     BusinessHours = bus.business_hours,
-                    Category = new Category()
-                    {
-                        //bus.category
-                    },
+                    Category = bus.category,
                     Description = bus.description,
                     Id = bus.id,
                     LastUpdate = bus.last_update,
@@ -28,14 +25,21 @@ namespace Ideas4AppsHub.Repositories
                     {
                         //bus.photo,
                     },
-                    Status = new Status()
-                    {
-                        //bus.status,
-                    },
+                    Status = (Status)Enum.Parse(typeof(Status), bus.status),
                     Tags = bus.tags,
                     TelephoneNumber = bus.telephone_number,
-                    WebUrl = bus.weburl
+                    WebUrl = bus.weburl,
+                    Address = new Address()
+                    {
+                        Address1 = bus.address1,
+                        Address2 = bus.address2,
+                        Address3 = bus.address3,
+                        PostalCode = bus.postal_code
+                    },
+                    GPS = new GPS()
                 };
+            business.GPS.ConvertToLongitudeAndLatitude(bus.gps);
+            return business;
         }
         public List<Business> GetAllBusiness()
         {
@@ -111,16 +115,21 @@ namespace Ideas4AppsHub.Repositories
                                        select bus).FirstOrDefault();
                 currentBusiness.active = business.Active;
                 currentBusiness.business_hours = business.BusinessHours;
-                //currentBusiness.category = business.Category;
+                currentBusiness.category = business.Category.ToString();
                 currentBusiness.description = business.Description;
                 currentBusiness.id = business.Id;
                 currentBusiness.last_update = DateTime.Now;
                 currentBusiness.name = business.Name;
                 //currentBusiness.photo = business.Photo;
                 currentBusiness.status = business.Status.ToString();
+                currentBusiness.address1 = business.Address.Address1;
+                currentBusiness.address2 = business.Address.Address2;
+                currentBusiness.address3 = business.Address.Address3;
+                currentBusiness.postal_code = business.Address.PostalCode;
                 currentBusiness.tags = business.Tags;
                 currentBusiness.telephone_number = business.TelephoneNumber;
                 currentBusiness.weburl = business.WebUrl;
+                currentBusiness.gps = business.GPS.Value;
                 if (entityModel.SaveChanges() > 0)
                     return true;
                 return false;

@@ -1,0 +1,143 @@
+﻿@model Ideas4AppsHub.MVC.Models.BusinessInfoModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<div class="page-header">
+    <h2>Edit</h2>
+</div>
+<div>
+    <div style="font-size:  18px">
+        <p class="control-label">Business Name:</p>
+        <input id="businessName" type="text" size="16"/>
+    </div><br />
+    
+    <div style="font-size:  18px">
+        <p class="control-label">Business Description:</p>
+        <textarea class="form-control" id="businessDescription"></textarea>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p class="control-label">Business Address:</p>
+        <div>
+        <input id="businessAddress1" type="text" size="16"/>
+        </div>
+        <input id="businessAddress2" type="text" size="16"/>
+        <div>
+        <input id="businessAddress3" type="text" size="16"/>
+        </div>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p class="control-label">Business Postal Code:</p>
+        <input id="businessPostalCode" type="text" size="16"/>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p class="control-label">Business telephone Number:</p>
+        <input id="businessTelephoneNumber" type="text" size="16"/>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p class="control-label">Business Hours:</p>
+        <input id="businessHours" type="text" size="16"/>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p class="control-label">Business Webpage Url:</p>
+        <input id="businessWebUrl" type="text" size="16"/>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p class="control-label">GPS Latitude:</p>
+        <input id="businessGPSLatitude" type="text" size="16"/>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p class="control-label">GPS Longitude:</p>
+        <input id="businessGPSLongitude" type="text" size="16"/>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p>Tags:</p>
+        <textarea class="form-control" id="tagsText"></textarea>
+    </div>
+
+    <div style="font-size:  18px">
+        <p>Catagory:</p>
+        <select class="btn" id="catagorySelect" data-bind="options: catagoryOptions"></select>
+    </div><br />
+
+    <div style="font-size:  18px">
+        <p>Active:         <input type="checkbox" id="activeCheckBox"/></p>
+    </div><br />
+
+    <div>
+        <p>Business Photo</p><br />
+
+        <form  id="uploadAll" action="../Admin/UploadPhoto" method="post" enctype="multipart/form-data" target="hiddenIframe">
+                        
+            <label for="file">Photo</label>
+            <input type="file" name="photo" style="width:360px" id="photo" />
+            <input type="hidden" name="businessId" style="width:350px;" data-bind="value: guid" />
+            <div hidden>
+                <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" name="submit" value="Laai op" />
+            </div>
+         </form>
+        <iframe id="hiddenIframe" @*style="display:none"*@></iframe>
+    </div>
+    
+    <div>
+        <button type="button" class="btn btn-primary" data-bind="click: UpdateBusiness">Create</button>
+    </div>
+
+
+</div>
+
+@section scripts{
+<script>
+    var viewModel = @(Html.Raw(Json.Encode(Model)))
+
+    //Businesses = ko.observableArray();
+
+    function businessesEditViewModel() {
+        var self = this;
+        self.catagoryOptions = ko.observable(viewModel.Business)
+
+    }
+
+    UpdateBusiness = function ()
+    {
+
+    }
+
+    //EditBusiness = function (selectedBusiness) {
+    //    changeLocation("../Admin/Edit/" + selectedBusiness.id);
+    //}
+
+    //RemoveBusiness = function (selectedBusiness) {
+    //    $('#myModal').modal();
+    //    $('#btnYes').click(function () {
+    //        $.post("../Admin/RemoveBusiness", { id: selectedBusiness.id },
+    //            function (response) { handleRegisterResponse(response); });
+    //    });
+
+    //}
+
+    //function handleRegisterResponse(response) {
+    //    if (response.isOk)
+    //        document.location.reload();
+    //    //$("#uploadPhotoBtn").click();
+    //}
+    guid = ko.observable();
+
+    ko.applyBindings(new businessesEditViewModel(), document.getElementById("bodyDiv"));
+
+    
+    $(document).ready(function () {
+        busyViewModel.IsBusy(false);
+    });
+</script>    
+}

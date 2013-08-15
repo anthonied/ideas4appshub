@@ -18,13 +18,20 @@ namespace Ideas4AppsHub.MVC.Controllers
 
         public ActionResult Index()
         {
-            var businesses = _businessRepository.GetAllBusiness();
-            var businessInfoModel = new BusinessInfoModel()
-            {
-                AllBusinesses = businesses
-            };
-            return View(businessInfoModel);
+            var businessModels = new List<BusinessInfoModel>();
 
+            var businesses = _businessRepository.GetAllBusiness();
+
+            foreach (var business in businesses)
+            {
+                var businessModel = new BusinessInfoModel
+                {
+                    Business = business
+                };
+                businessModels.Add(businessModel);
+            }
+
+            return View(businessModels);
         }
 
         public ActionResult UploadPhoto(HttpPostedFileWrapper photo)
@@ -42,6 +49,16 @@ namespace Ideas4AppsHub.MVC.Controllers
                 success = true,
             };
             return Json(new { Result = result });
+        }
+
+        public ActionResult Edit(int id) 
+        {
+            var business = _businessRepository.GetBusinessById(id);
+            var businessInfoModel = new BusinessInfoModel()
+            {
+               Business = business
+            };
+            return View(businessInfoModel);
         }
 
         public ActionResult ManageBusiness() 
@@ -75,7 +92,7 @@ namespace Ideas4AppsHub.MVC.Controllers
                 BusinessHours = businesshours,
                 Tags = tags,
                 WebUrl = weburl,
-                Category = (Category)Enum.Parse(typeof(Category), category),
+                Category = category,
                 GPS = new GPS
                 {
                     Latitude = latitude,
@@ -93,5 +110,21 @@ namespace Ideas4AppsHub.MVC.Controllers
             return new JsonResult { Data = data };
         }
 
+        [AllowAnonymous]
+        public JsonResult RemoveBusiness(int id)
+        {
+            var selectedBusiness = _businessRepository.GetBusinessById(id);
+            selectedBusiness.Status = Status.Deleted;
+            selectedBusiness.Active = false;
+
+            _businessRepository.UpdateBusiness(selectedBusiness);
+
+            var data = new
+            {
+                isOk = true
+            };
+
+            return new JsonResult { Data = data};
+        }
     }
 }
