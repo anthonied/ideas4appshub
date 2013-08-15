@@ -20,7 +20,14 @@ namespace Ideas4AppsHub.MVC.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var businessModels = new List<BusinessModel>();
+            var businesses = _businessRepository.GetAllBusiness();
+
+            businesses.ForEach(business => businessModels.Add(new BusinessModel
+            {
+
+            }));
+            return View(businessModels);
         }
 
         public ActionResult ManageBusiness() 
