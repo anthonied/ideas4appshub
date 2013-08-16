@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using DotNetOpenAuth.AspNet;
-using Microsoft.Web.WebPages.OAuth;
-using WebMatrix.WebData;
-using Ideas4AppsHub.MVC.Filters;
-using Models;
+using log4net;
+using UserAuthenticationDomain.Repository;
 
 namespace Ideas4AppsHub.MVC.Controllers
 {
@@ -19,6 +13,7 @@ namespace Ideas4AppsHub.MVC.Controllers
     {
         //
         // GET: /Account/Login
+        private static readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -39,15 +34,34 @@ namespace Ideas4AppsHub.MVC.Controllers
         [AllowAnonymous]
         public JsonResult RegisterNewAccount(string fullName, string email, string password)
         {
-            var data = new { isOk = false, errorMessage = "TO DO" };
-            return new JsonResult { Data = data };
+            FlatFileRepository flatFileRepo = new FlatFileRepository();
+            if (flatFileRepo.RegisterNewAccount(fullName, email, password, 0))
+            {
+                var data = new { isOk = true, errorMessage = "Registration Successfull" };
+                return new JsonResult { Data = data };
+            }
+            else
+            {
+                var data = new { isOk = false, errorMessage = "Registration Failed" };
+                return new JsonResult { Data = data };
+            }
         }
 
         [AllowAnonymous]
         public JsonResult CheckLogin(string fullName, string email, string password)
         {
-            var data = new { isOk = false, errorMessage = "TO DO" };
-            return new JsonResult { Data = data };
+            _log.Debug("Checklogin called");
+            FlatFileRepository flatFileRepo = new FlatFileRepository();
+            if (flatFileRepo.CheckLogin(fullName, email, password))
+            {
+                var data = new { isOk = true, errorMessage = "User login successfull" };
+                return new JsonResult { Data = data };
+            }
+            else
+            {
+                var data = new { isOk = false, errorMessage = "User login failed" };
+                return new JsonResult { Data = data };
+            }
         }
 
         /*//

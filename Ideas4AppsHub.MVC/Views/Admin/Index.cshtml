@@ -1,5 +1,98 @@
-﻿@{
+﻿@model IEnumerable<Ideas4AppsHub.MVC.Models.BusinessInfoModel>
+
+<style>
+    th { text-align: left }
+</style>
+
+@{
     ViewBag.Title = "Index";
 }
+<div class="form-horizontal">
+    <h2>Registered Businesses</h2>
 
-<h2>Index</h2>
+    <p>
+        @Html.ActionLink("Add New Business", "ManageBusiness")
+    </p>
+
+    <table class="table table-condensed table-hover table-no-border">
+        <thead>
+            <tr style="font-size:16px">
+                <th>Business</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        @*<tbody data-bind="foreach: Businesses">
+            <!-- ko if: status !== 2 -->
+            <tr>
+                <td data-bind="text: name"></td>
+                <td><a href="#" class="btn btn-primary" data-bind="click: EditBusiness">Edit</a></td>
+                <td><a href="#" class="btn btn-primary" data-bind="click: RemoveBusiness">Remove</a></td>
+            </tr>
+            <!-- /ko -->
+        </tbody>*@
+        <tbody data-bind="foreach: Businesses">
+            <tr>
+                <td data-bind="text: name"></td>
+                <td><a href="#" class="btn btn-primary" data-bind="selectedBusiness: this,click: EditBusiness">Edit</a></td>
+                <td><a href="#" class="btn btn-primary" data-bind="selectedBusiness: this, click: RemoveBusiness">Remove</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="myModal" class="modal hide">
+    <div class="modal-header">
+         <h3>Delete</h3>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to remove?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" id="btnYes" class="btn danger">Yes</a>
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn secondary">No</a>
+    </div>
+</div>
+
+@section scripts{
+<script>
+    var viewModel = @(Html.Raw(Json.Encode(Model)))
+    
+    Businesses = ko.observableArray();
+
+    function businessesIndexViewModel()
+    {
+        for (var i = 0 ; i < viewModel.length ; i++)
+        {
+            if (viewModel[i].Business.StatusAsString != "Deleted")
+            Businesses.push({id: viewModel[i].Business.Id, name: viewModel[i].Business.Name });
+        }
+    }
+
+    EditBusiness = function (selectedBusiness) {
+        changeLocation("../Admin/Edit/" + selectedBusiness.id);
+    }
+
+    RemoveBusiness = function (selectedBusiness) {
+        $('#myModal').modal();
+        $('#btnYes').click(function () {
+            $.post("../Admin/RemoveBusiness", { id: selectedBusiness.id },
+                function (response) { handleRegisterResponse(response); });
+        });
+
+    }
+    
+    function handleRegisterResponse(response) {
+        if (response.isOk)
+            document.location.reload();
+        //$("#uploadPhotoBtn").click();
+    }
+
+    ko.applyBindings(new businessesIndexViewModel(), document.getElementById("bodyDiv"));
+
+
+    $(document).ready(function (){
+        busyViewModel.IsBusy(false);
+    });
+</script>    
+}

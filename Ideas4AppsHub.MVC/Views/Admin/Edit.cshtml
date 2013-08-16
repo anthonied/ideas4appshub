@@ -1,0 +1,163 @@
+﻿@model Ideas4AppsHub.MVC.Models.BusinessInfoModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<div class="page-header">
+    <h2>Edit</h2>
+</div>
+<table>
+    
+        <tr style="font-size:  16px  ;">
+            <td style="width:200px; class="control-label">Name:</td>
+            <td><input id="businessName" type="text" size="16" data-bind="value: nameValue, valueUpdate: 'afterkeydown'"/></td>
+        </tr>
+
+    <tr></tr>
+    
+        <tr style="font-size:  16px">
+            <td  class="control-label">Description:</td>
+            <td> <textarea class="form-control" id="businessDescription" data-bind="value: descriptionValue, valueUpdate: 'afterkeydown'"></textarea></textarea></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Address:</td>            
+            <td><input id="businessAddress1" type="text" size="16" data-bind="value: address1Value, valueUpdate: 'afterkeydown'"/></td>            
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input id="businessAddress2" type="text" size="16" data-bind="value: address2Value, valueUpdate: 'afterkeydown'"/>
+            </td>
+        </tr>
+            <tr>
+            <td></td>
+            <td>
+                <input id="businessAddress3" type="text" size="16" data-bind="value: address3Value, valueUpdate: 'afterkeydown'"/>
+                </td>
+        </tr>
+        
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Code:</td>
+            <td><input id="businessPostalCode" type="text" size="16" data-bind="value: postalCodeValue, valueUpdate: 'afterkeydown'"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Telephone Number:</td>
+            <td><input id="businessTelephoneNumber" type="text" size="16" data-bind="value: telephoneValue, valueUpdate: 'afterkeydown'"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Business Hours:</td>
+            <td><input id="businessHours" type="text" size="16" data-bind="value: hoursValue, valueUpdate: 'afterkeydown'"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">Webpage Url:</td>
+            <td><input id="businessWebUrl" type="text" size="16" data-bind="value: urlValue, valueUpdate: 'afterkeydown'"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td  class="control-label">
+                GPS:
+            </td>
+        </tr>
+        <tr style="font-size:  16px">
+            <td class="control-label">GPS Latitude:</td>
+            <td><input id="businessGPSLatitude" type="text" size="16" data-bind="value: latitudeValue, valueUpdate: 'afterkeydown'"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td class="control-label">GPS Longitude:</td>
+            <td><input id="businessGPSLongitude" type="text" size="16" data-bind="value: longitudeValue, valueUpdate: 'afterkeydown'"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td>Tags:</td>
+            <td><textarea class="form-control" id="tagsText" data-bind="value: tagsValue, valueUpdate: 'afterkeydown'"></textarea></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td>Catagory:</td>
+            <td><select class="btn" id="catagorySelect" data-bind="options: catagoryOptions"></select></td>
+        </tr>
+
+        <tr></tr>
+        <tr style="font-size:  16px; height:60px">
+            <td>Active:</td>
+            <td><input type="checkbox" id="activeCheckBox" data-bind="checked: isChecked"/></td>
+        </tr>
+
+        <tr style="font-size:  16px">
+            <td>Photo:</td>
+
+            <td><form  id="uploadAll" action="../Admin/UploadPhoto" method="post" enctype="multipart/form-data" target="hiddenIframe">                        
+            
+                <input type="file" name="photo" style="width:360px" id="photo" />
+                <input type="hidden" name="id" style="width:350px;" data-bind="value: guid" />
+                <div hidden>
+                    <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" name="submit" value="Laai op" />
+                </div>
+             </form></td>
+            <iframe id="hiddenIframe" style="display:none"></iframe>
+        </tr>
+    
+        <tr>
+            <td></td>
+            <td><button type="button" class="btn btn-primary" data-bind="click: UpdateBusiness">Update</button></td>
+        </tr>
+
+
+</table>
+
+@section scripts{
+<script>
+    var viewModel = @(Html.Raw(Json.Encode(Model)))
+
+        
+
+    function businessesEditViewModel() {
+        var self = this;
+        self.catagoryOptions = ko.observable(viewModel.Business.CategoriesAsStringList);
+        self.nameValue = ko.observable(viewModel.Business.Name);
+        self.descriptionValue = ko.observable(viewModel.Business.Description);
+        self.address1Value = ko.observable(viewModel.Business.Address.Address1);
+        self.address2Value = ko.observable(viewModel.Business.Address.Address2);
+        self.address3Value = ko.observable(viewModel.Business.Address.Address3);
+        self.postalCodeValue = ko.observable(viewModel.Business.Address.PostalCode);
+        self.telephoneValue = ko.observable(viewModel.Business.TelephoneNumber);
+        self.hoursValue = ko.observable(viewModel.Business.BusinessHours);
+        self.urlValue = ko.observable(viewModel.Business.WebUrl);
+        self.latitudeValue = ko.observable(viewModel.Business.GPS.Latitude);
+        self.longitudeValue = ko.observable(viewModel.Business.GPS.Longitude);
+        self.tagsValue = ko.observable(viewModel.Business.Tags);
+        self.isChecked = ko.observable(viewModel.Business.Active);
+        //alert(self.nameValue());
+
+        UpdateBusiness = function () {            
+            $.post("/Admin/UpdateBusiness",{
+                id: viewModel.Business.Id, name: self.nameValue(), description: self.descriptionValue(), telephone: self.telephoneValue(),
+                address1: self.address1Value(), address2: self.address2Value(), address3: self.address3Value(), postalcode: self.postalCodeValue(), status: "Updated",
+                businesshours: self.hoursValue(), tags: self.tagsValue(), weburl: self.urlValue(), category: catagorySelect.value, active: activeCheckBox.checked,
+                longitude: self.longitudeValue(), latitude: self.latitudeValue()
+            }, function (response) { handleRegisterResponse(response); }
+            );
+        }
+    }
+
+    guid = ko.observable();
+    function handleRegisterResponse(response) {
+        //$("#uploadPhotoBtn").click();
+        changeLocation("/Admin");
+    }
+
+    ko.applyBindings(new businessesEditViewModel(), document.getElementById("bodyDiv"));
+        
+    $(document).ready(function () {
+        busyViewModel.IsBusy(false);
+    });
+</script>    
+}

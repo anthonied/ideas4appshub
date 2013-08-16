@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ideas4appsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="ideas4appsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ideas4appsModelStoreContainer">
           <EntitySet Name="business" EntityType="ideas4appsModel.Store.business" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
@@ -24,9 +24,13 @@
           <Property Name="photo" Type="image" />
           <Property Name="category" Type="varchar" MaxLength="50" />
           <Property Name="active" Type="bit" />
+          <Property Name="address1" Type="varchar" MaxLength="50" />
+          <Property Name="address2" Type="varchar" MaxLength="50" />
+          <Property Name="address3" Type="varchar" MaxLength="50" />
+          <Property Name="postal_code" Type="varchar" MaxLength="50" />
+          <Property Name="gps" Type="varchar" MaxLength="50" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ideas4appsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -37,18 +41,23 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="telephone_number" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="last_update" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="business_hours" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="tags" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="weburl" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="category" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="active" Type="Boolean" />
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="description" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="telephone_number" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="last_update" Precision="3" />
+          <Property Type="String" Name="status" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="business_hours" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="tags" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="weburl" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="photo" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="category" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="active" />
+          <Property Type="String" Name="address1" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="address2" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="address3" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="postal_code" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="gps" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -59,18 +68,23 @@
           <EntitySetMapping Name="businesses">
             <EntityTypeMapping TypeName="ideas4appsModel.business">
               <MappingFragment StoreEntitySet="business">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="telephone_number" ColumnName="telephone_number" />
-                <ScalarProperty Name="last_update" ColumnName="last_update" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="business_hours" ColumnName="business_hours" />
-                <ScalarProperty Name="tags" ColumnName="tags" />
-                <ScalarProperty Name="weburl" ColumnName="weburl" />
-                <ScalarProperty Name="photo" ColumnName="photo" />
-                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="gps" ColumnName="gps" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="address3" ColumnName="address3" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
                 <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="weburl" ColumnName="weburl" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="business_hours" ColumnName="business_hours" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="last_update" ColumnName="last_update" />
+                <ScalarProperty Name="telephone_number" ColumnName="telephone_number" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

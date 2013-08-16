@@ -12,14 +12,11 @@ namespace Ideas4AppsHub.Repositories
     {
         private Business CreateDomainBusiness(business bus)
         {
-            return new Business()
+            var business = new Business()
                 {
                     Active = bus.active,
                     BusinessHours = bus.business_hours,
-                    Category = new Category()
-                    {
-                        //bus.category
-                    },
+                    Category = (Category)Enum.Parse(typeof(Category), bus.category),
                     Description = bus.description,
                     Id = bus.id,
                     LastUpdate = bus.last_update,
@@ -28,14 +25,21 @@ namespace Ideas4AppsHub.Repositories
                     {
                         //bus.photo,
                     },
-                    Status = new Status()
-                    {
-                        //bus.status,
-                    },
+                    Status = (Status)Enum.Parse(typeof(Status), bus.status),
                     Tags = bus.tags,
                     TelephoneNumber = bus.telephone_number,
-                    WebUrl = bus.weburl
+                    WebUrl = bus.weburl,
+                    Address = new Address()
+                    {
+                        Address1 = bus.address1,
+                        Address2 = bus.address2,
+                        Address3 = bus.address3,
+                        PostalCode = bus.postal_code
+                    },
+                    GPS = new GPS()
                 };
+            business.GPS.ConvertToLongitudeAndLatitude(bus.gps);
+            return business;
         }
         public List<Business> GetAllBusiness()
         {
@@ -60,7 +64,7 @@ namespace Ideas4AppsHub.Repositories
             }
         }
 
-        public bool AddOrUpdateBusiness(Business business)
+        public int AddOrUpdateBusiness(Business business)
         {
             using (var entityModel = new ideas4appsEntities())
             {
@@ -72,7 +76,7 @@ namespace Ideas4AppsHub.Repositories
             }
         }
 
-        public bool AddBusiness(Business business)
+        public int AddBusiness(Business business)
         {
             using (var entityModel = new ideas4appsEntities())
             {
@@ -80,23 +84,31 @@ namespace Ideas4AppsHub.Repositories
                 {
                     active = business.Active,
                     business_hours = business.BusinessHours,
-                    //category = business.Category,
+                    category = business.Category.ToString(),
                     description = business.Description,
                     last_update = DateTime.Now,
                     name = business.Name,
                     //photo = business.Photo,
-                    //status = business.Status,
+                    status = business.Status.ToString(),
                     tags = business.Tags,
                     telephone_number = business.TelephoneNumber,
-                    weburl = business.WebUrl
+                    weburl = business.WebUrl,
+                    address1 = business.Address.Address1,
+                    address2 = business.Address.Address2,
+                    address3 = business.Address.Address3,
+                    postal_code = business.Address.PostalCode,
+                    gps = business.GPS.Value
+
                 };
                 entityModel.businesses.Add(dataBusiness);
+
                 if (entityModel.SaveChanges() > 0)
-                    return true;
-                return false;
+                    return dataBusiness.id;
+                return 0;
             }
         }
-        public bool UpdateBusiness(Business business)
+
+        public int UpdateBusiness(Business business)
         {
             using (var entityModel = new ideas4appsEntities())
             {
@@ -105,19 +117,24 @@ namespace Ideas4AppsHub.Repositories
                                        select bus).FirstOrDefault();
                 currentBusiness.active = business.Active;
                 currentBusiness.business_hours = business.BusinessHours;
-                //currentBusiness.category = business.Category;
+                currentBusiness.category = business.Category.ToString();
                 currentBusiness.description = business.Description;
                 currentBusiness.id = business.Id;
                 currentBusiness.last_update = DateTime.Now;
                 currentBusiness.name = business.Name;
                 //currentBusiness.photo = business.Photo;
                 currentBusiness.status = business.Status.ToString();
+                currentBusiness.address1 = business.Address.Address1;
+                currentBusiness.address2 = business.Address.Address2;
+                currentBusiness.address3 = business.Address.Address3;
+                currentBusiness.postal_code = business.Address.PostalCode;
                 currentBusiness.tags = business.Tags;
                 currentBusiness.telephone_number = business.TelephoneNumber;
                 currentBusiness.weburl = business.WebUrl;
+                currentBusiness.gps = business.GPS.Value;
                 if (entityModel.SaveChanges() > 0)
-                    return true;
-                return false;
+                    return currentBusiness.id;
+                return -1;
             }
         }
 
@@ -134,6 +151,24 @@ namespace Ideas4AppsHub.Repositories
                 if (entityModel.SaveChanges() > 0)
                     return true;
                 return false;
+            }
+        }
+
+        public bool AddPhoto(int projectId, byte[] photo)
+        {
+            using (var entityModel = new ideas4appsEntities())
+            {
+                var selectedBusiness = (from bus in entityModel.businesses
+                                            where bus.id == projectId
+                                            select bus).FirstOrDefault();
+
+                if (selectedBusiness == null) return false;
+
+                selectedBusiness.photo = photo;
+
+                if (entityModel.SaveChanges() > 0)
+                    return true;
+                return false;                 
             }
         }
     }
