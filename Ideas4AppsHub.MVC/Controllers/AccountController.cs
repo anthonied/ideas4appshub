@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using log4net;
 using UserAuthenticationDomain.Repository;
+using SolutionServerWebSession;
 
 namespace Ideas4AppsHub.MVC.Controllers
 {
@@ -54,6 +55,13 @@ namespace Ideas4AppsHub.MVC.Controllers
             FlatFileRepository flatFileRepo = new FlatFileRepository();
             if (flatFileRepo.CheckLogin(fullName, email, password))
             {
+                RegisteredUserBase user = new RegisteredUserBase()
+                {
+                    UserName = fullName,
+                    Email = email,
+                    Password = password
+                };
+                UserSession.LoggedInUser = user;
                 var data = new { isOk = true, errorMessage = "User login successfull" };
                 return new JsonResult { Data = data };
             }
