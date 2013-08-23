@@ -44,5 +44,3 @@ Logs
 Uploaded files*/
 *.Tests.Results.xml
 *.vbw
-!NuGet.exe
-!jquery.ui.base.css

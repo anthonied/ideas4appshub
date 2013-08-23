@@ -23,7 +23,7 @@ namespace Models
     public class UserProfile
     {
         [Key]
-        [System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
     }

@@ -20,9 +20,7 @@ namespace Ideas4ApssHub.WebAPI.Controllers
                 Message = "Connectivity is good",
                 Data = "Connectivity is good"
             };
-
-            var returnString = JsonConvert.SerializeObject(solJsonResult).Replace("\\\\","");
-            return returnString;
+            return JsonConvert.SerializeObject(solJsonResult);
           
             return "AAAA";
         }
