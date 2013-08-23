@@ -55,13 +55,13 @@ namespace Ideas4AppsHub.MVC.Controllers
             FlatFileRepository flatFileRepo = new FlatFileRepository();
             if (flatFileRepo.CheckLogin(fullName, email, password))
             {
-                RegisteredUserBase registeredUser = new RegisteredUserBase()
+                RegisteredUserBase user = new RegisteredUserBase()
                 {
+                    UserName = fullName,
                     Email = email,
-                    Password = password,
-                    UserName = fullName
+                    Password = password
                 };
-                UserSession.LoggedInUser = registeredUser;
+                UserSession.LoggedInUser = user;
                 var data = new { isOk = true, errorMessage = "User login successfull" };
                 return new JsonResult { Data = data };
             }
