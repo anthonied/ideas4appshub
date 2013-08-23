@@ -42,13 +42,30 @@ namespace Ideas4AppsHub.Repositories
             using (var entityModel = new ideas4appsEntities())
             {
                 var dataBusinesses = (from bus in entityModel.businesses
-                                        select bus).ToList();
+                                      where bus.status != "Deleted"
+                                      select bus).ToList();
                 var domainBusinesses = new List<Business>();
                 foreach (var dataBusiness in dataBusinesses)
                     domainBusinesses.Add(CreateDomainBusiness(dataBusiness));
                 return domainBusinesses;
             }
         }
+
+        public List<Business> GetBusinessesModifiedAfterDate(DateTime date)
+        {
+            using (var entityModel = new ideas4appsEntities())
+            {
+                var dataBusinesses = (from bus in entityModel.businesses
+                                      where bus.status != "Deleted"
+                                      && bus.last_update > date
+                                      select bus).ToList();
+                var domainBusinesses = new List<Business>();
+                foreach (var dataBusiness in dataBusinesses)
+                    domainBusinesses.Add(CreateDomainBusiness(dataBusiness));
+                return domainBusinesses;
+            }
+        }
+
         public Business GetBusinessById(int id)
         {
             using (var entityModel = new ideas4appsEntities())

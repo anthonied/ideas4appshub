@@ -17,6 +17,7 @@ namespace Ideas4ApssHub.WebAPI.Controllers
         [HttpGet]
         public string Get()
         {
+            _log.Debug("Getting All Businesses");
             SolutionServerResult<List<Business>> solJsonResult;
             try
             {
@@ -43,9 +44,41 @@ namespace Ideas4ApssHub.WebAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public string Get(DateTime date)
+        {
+            _log.Debug(String.Format("Getting businesses modified after '{0}'", date));
+            SolutionServerResult<List<Business>> solJsonResult;
+            try
+            {
+                List<Business> businesses = new BusinessRepository().GetBusinessesModifiedAfterDate(date);
+                solJsonResult = new SolutionServerResult<List<Business>>()
+                {
+                    IsOk = true,
+                    Message = String.Format("Sending '{0}' businesses", businesses.Count),
+                    Data = businesses
+                };
+                _log.Debug(String.Format("Sending {0} businesses", businesses.Count));
+                return JsonConvert.SerializeObject(solJsonResult);
+            }
+            catch (Exception ex)
+            {
+                solJsonResult = new SolutionServerResult<List<Business>>()
+                {
+                    IsOk = false,
+                    Message = String.Format("Internal failure getting ALL businesses: '{0}'", ex.Message),
+                    Data = null
+                };
+                _log.Error("Error getting businesses: ", ex);
+                return JsonConvert.SerializeObject(solJsonResult);
+            }
+        }
+
         // GET api/business/int id
+        [HttpGet]
         public string Get(int id)
         {
+            _log.Debug(String.Format("Getting businesses with ID '{0}'", id));
             SolutionServerResult<Business> solJsonResult;
             try
             {
