@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -82,7 +83,7 @@ namespace Ideas4AppsHub.Test
             {
                 Photo = new Photo
                 {
-                    RawPhoto = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 }
+                    RawPhoto = File.ReadAllBytes("../../TestContent/johnycash.jpg")
                 }
             };
 
