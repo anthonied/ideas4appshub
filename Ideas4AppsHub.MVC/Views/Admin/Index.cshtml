@@ -34,8 +34,8 @@
         <tbody data-bind="foreach: Businesses">
             <tr>
                 <td data-bind="text: name"></td>
-                <td><a href="#" class="btn btn-primary" data-bind="selectedBusiness: this,click: EditBusiness">Edit</a></td>
-                <td><a href="#" class="btn btn-primary" data-bind="selectedBusiness: this, click: RemoveBusiness">Remove</a></td>
+                <td style="width:70px"><a href="#" class="btn btn-primary" data-bind="selectedBusiness: this,click: EditBusiness">Edit</a></td>
+                <td style="width:70px"><a href="#" class="btn btn-danger" data-bind="selectedBusiness: this, click: RemoveBusiness">Remove</a></td>
             </tr>
         </tbody>
     </table>

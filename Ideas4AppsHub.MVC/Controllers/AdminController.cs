@@ -66,6 +66,19 @@ namespace Ideas4AppsHub.MVC.Controllers
             return View(businessInfoModel);
         }
 
+        [AllowAnonymous]
+        public ActionResult GenerateImage(int id)
+        {
+            FileContentResult result;
+            var photo = _businessRepository.GetBusinessImageById(id);
+            using (var memStream = new System.IO.MemoryStream())
+            {
+                if (photo.RawPhoto == null) return null;
+                result = this.File(photo.RawPhoto, "jpg");
+            }
+            return result;
+        }
+
         public ActionResult ManageBusiness() 
         {
             var businessModel = new BusinessModel()
@@ -114,6 +127,7 @@ namespace Ideas4AppsHub.MVC.Controllers
                 data = new
                 {
                     isOk = true,
+                    Message = "Congratulations! Your save was successful",
                     projectId = businessId
                 };
             }
@@ -121,7 +135,8 @@ namespace Ideas4AppsHub.MVC.Controllers
             {
                 data = new
                 {
-                    isOk = false
+                    isOk = false,
+                    Message = "Sorry! Your save failed."
                 };
             }
 
@@ -180,11 +195,13 @@ namespace Ideas4AppsHub.MVC.Controllers
 
             object data;
 
-            if (projectId > 0)
+            if (projectId != 0)
             {
                 data = new
                 {
                     isOk = true,
+                    Message = "Congratulations! Your business has been successfully updated",
+                    projectId = projectId
                 };
             }
             else
@@ -192,6 +209,7 @@ namespace Ideas4AppsHub.MVC.Controllers
                 data = new
                 {
                     isOk = false,
+                    Message = "Sorry! Your business was not updated."
                 };
             }
 

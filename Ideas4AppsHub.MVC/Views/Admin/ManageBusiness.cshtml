@@ -113,6 +113,19 @@
 
 </table>
 
+<div class="modal hide fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <h3 @*class="modal-title"*@>New Business</h3>
+            </div>
+            <div class="modal-body">
+                <div data-bind="text: ErrorMessage, css: RegisterClassType"></div>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+            </div>
+</div>
+
 @section scripts{
 <script>
     var viewModel = @(Html.Raw(Json.Encode(Model)))
@@ -122,16 +135,41 @@
 
         var self = this;
         self.catagoryOptions = ko.observableArray(viewModel.Category);
+        
 
         CreateBusiness = function () {
+            busyViewModel.IsBusy(true);
             $.post("../Admin/CreateBusiness", { name: businessName.value, description: businessDescription.value, telephone: businessTelephoneNumber.value, address1: businessAddress1.value, address2: businessAddress2.value, address3: businessAddress3.value, postalcode: businessPostalCode.value, status: "New", businesshours: businessHours.value, tags: tagsText.value, weburl: businessWebUrl.value, category: catagorySelect.value, active: activeCheckBox.checked, longitude: businessGPSLongitude.value, latitude: businessGPSLatitude.value},
                 function (response) { handleRegisterResponse(response); });
         }
     }
     guid = ko.observable();
-    function handleRegisterResponse(response) {        
-        guid(response.projectId);
+    ErrorMessage = ko.observable();
+    RegisterClassType = ko.observable();
+
+    function handleRegisterResponse(response) {
+        busyViewModel.IsBusy(false);
+       
+        ErrorMessage(response.Message);
+        
+        if (!response.isOk) {
+            RegisterClassType("alert alert-error");
+            $('#resultsModal').modal({ backdrop: 'static', show: true });
+            return;
+        }
+        else {
+            
+            guid(response.projectId);
+            RegisterClassType("alert alert-success");
+            
+            $('#resultsModal').modal({ backdrop: 'static', show: true });
+        }
+
         $("#uploadPhotoBtn").click();
+
+        $('#resultsModal').on('hidden', function () { document.location.reload(); });
+        
+        
     }
 
     ko.applyBindings(new manageBusinessViewModel(), document.getElementById("bodyDiv"));
