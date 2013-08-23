@@ -24,6 +24,13 @@ namespace Ideas4AppsHub.Test
             Assert.That(business, Is.Not.Null);
         }
         [Test]
+        public void BusinessesCanBeRetrievedByModificationDate()
+        {
+            DateTime date = DateTime.Now.AddDays(-60);
+            var businesses = new BusinessRepository().GetBusinessesModifiedAfterDate(date);
+            Assert.That(businesses, Is.Not.Null);
+        }
+        [Test]
         public void CanAddBusinessToDB()
         {
             var business = new Business()
