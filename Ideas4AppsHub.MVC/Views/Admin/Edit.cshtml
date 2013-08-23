@@ -95,12 +95,12 @@
         <tr style="font-size:  16px">
             <td>Photo:</td>
 
-            <td><form  id="uploadAll" action="../Admin/UploadPhoto" method="post" enctype="multipart/form-data" target="hiddenIframe">                        
+            <td><form  id="uploadAll" action="../UploadPhoto" method="post" enctype="multipart/form-data" target="hiddenIframe">                        
             
                 <input type="file" name="photo" style="width:360px" id="photo" />
-                <input type="hidden" name="id" style="width:350px;" data-bind="value: guid" />
-                <div hidden>
-                    <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" name="submit" value="Laai op" />
+                <input type="hidden" name="id" style="width:350px;" data-bind="value: projectId" />
+                <div>
+                    <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" name="submit" value="Laai op"/>
                 </div>
              </form></td>
             <iframe id="hiddenIframe" style="display:none"></iframe>
@@ -131,7 +131,7 @@
 <script>
     var viewModel = @(Html.Raw(Json.Encode(Model)))
 
-        
+     
 
     function businessesEditViewModel() {
         var self = this;
@@ -162,13 +162,12 @@
         }
     }
 
-    guid = ko.observable();
+    projectId = ko.observable();
     ErrorMessage = ko.observable();
     RegisterClassType = ko.observable();
 
     function handleRegisterResponse(response) {
         busyViewModel.IsBusy(false);
-
         ErrorMessage(response.Message);
 
         if (!response.isOk) {
@@ -177,15 +176,15 @@
             return;
         }
         else {
-
-            guid(response.projectId);
+            projectId(response.projectId);
             RegisterClassType("alert alert-success");
 
             $('#resultsModal').modal({ backdrop: 'static', show: true });
         }
 
         $("#uploadPhotoBtn").click();
-        $('#resultsModal').on('hidden', function () { changeLocation("/Admin") });
+        //$('#resultsModal').on('hidden', function () { changeLocation("/Admin") });
+        $('#resultsModal').on('hidden', function () { changeLocation("..") });
     }
 
     ko.applyBindings(new businessesEditViewModel(), document.getElementById("bodyDiv"));
