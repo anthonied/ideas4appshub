@@ -20,11 +20,7 @@ namespace Ideas4AppsHub.Repositories
                     Description = bus.description,
                     Id = bus.id,
                     LastUpdate = bus.last_update,
-                    Name = bus.name,
-                    Photo = new Photo()
-                    {
-                        //bus.photo,
-                    },
+                    Name = bus.name,                   
                     Status = (Status)Enum.Parse(typeof(Status), bus.status),
                     Tags = bus.tags,
                     TelephoneNumber = bus.telephone_number,
@@ -46,13 +42,30 @@ namespace Ideas4AppsHub.Repositories
             using (var entityModel = new ideas4appsEntities())
             {
                 var dataBusinesses = (from bus in entityModel.businesses
-                                        select bus).ToList();
+                                      where bus.status != "Deleted"
+                                      select bus).ToList();
                 var domainBusinesses = new List<Business>();
                 foreach (var dataBusiness in dataBusinesses)
                     domainBusinesses.Add(CreateDomainBusiness(dataBusiness));
                 return domainBusinesses;
             }
         }
+
+        public List<Business> GetBusinessesModifiedAfterDate(DateTime date)
+        {
+            using (var entityModel = new ideas4appsEntities())
+            {
+                var dataBusinesses = (from bus in entityModel.businesses
+                                      where bus.status != "Deleted"
+                                      && bus.last_update > date
+                                      select bus).ToList();
+                var domainBusinesses = new List<Business>();
+                foreach (var dataBusiness in dataBusinesses)
+                    domainBusinesses.Add(CreateDomainBusiness(dataBusiness));
+                return domainBusinesses;
+            }
+        }
+
         public Business GetBusinessById(int id)
         {
             using (var entityModel = new ideas4appsEntities())
@@ -105,6 +118,21 @@ namespace Ideas4AppsHub.Repositories
                 if (entityModel.SaveChanges() > 0)
                     return dataBusiness.id;
                 return 0;
+            }
+        }
+
+        public Photo GetBusinessImageById(int id)
+        {
+            using (var entityModel = new ideas4appsEntities())
+            {
+                var photo = (from bus in entityModel.businesses
+                                    where bus.id == id
+                                    select bus.photo).FirstOrDefault();
+                return new Photo()
+                       {
+                           RawPhoto = photo,
+                       };
+
             }
         }
 

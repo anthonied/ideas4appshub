@@ -20,8 +20,6 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -215,9 +213,11 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BootstrapBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BusinessInfoModel.cs" />
     <Compile Include="Models\BusinessModel.cs" />
     <Compile Include="Models\HomeInputModel.cs" />
@@ -229,6 +229,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\AppSettings.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\ConnectionStrings.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\SmtpMailSettings.xml" />
     <Content Include="Content\Custom\body.css" />
     <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\bootstrap-responsive.css" />
@@ -369,7 +376,6 @@
   <ItemGroup>
     <Content Include="Content\Custom\Web.config" />
     <Content Include="Scripts\Custom\Web.config" />
-    <Content Include="PostDeploy.ps1" />
     <None Include="Scripts\jquery-2.0.2.min.map" />
     <Content Include="Views\Shared\_busyIndicator.cshtml" />
     <Content Include="Views\Admin\ManageBusiness.cshtml" />
@@ -392,9 +398,6 @@
       <Project>{054e3e18-0b68-420e-8ce1-2b417a56b1b5}</Project>
       <Name>Ideas4AppsHub.Repositories</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Filters\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -424,8 +427,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="$(SolutionDir)\.octopack\OctoPack.targets" />
   <!--<Import Project="..\packages\Microsoft.Bcl.Build.1.0.7\tools\Microsoft.Bcl.Build.targets" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
