@@ -212,11 +212,9 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BootstrapBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BusinessInfoModel.cs" />
     <Compile Include="Models\BusinessModel.cs" />
     <Compile Include="Models\HomeInputModel.cs" />
@@ -390,6 +388,9 @@
       <Project>{054e3e18-0b68-420e-8ce1-2b417a56b1b5}</Project>
       <Name>Ideas4AppsHub.Repositories</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Filters\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
