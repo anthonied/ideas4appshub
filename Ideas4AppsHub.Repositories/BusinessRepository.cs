@@ -20,11 +20,7 @@ namespace Ideas4AppsHub.Repositories
                     Description = bus.description,
                     Id = bus.id,
                     LastUpdate = bus.last_update,
-                    Name = bus.name,
-                    Photo = new Photo()
-                    {
-                        //bus.photo,
-                    },
+                    Name = bus.name,                   
                     Status = (Status)Enum.Parse(typeof(Status), bus.status),
                     Tags = bus.tags,
                     TelephoneNumber = bus.telephone_number,
@@ -122,6 +118,21 @@ namespace Ideas4AppsHub.Repositories
                 if (entityModel.SaveChanges() > 0)
                     return dataBusiness.id;
                 return 0;
+            }
+        }
+
+        public Photo GetBusinessImageById(int id)
+        {
+            using (var entityModel = new ideas4appsEntities())
+            {
+                var photo = (from bus in entityModel.businesses
+                                    where bus.id == id
+                                    select bus.photo).FirstOrDefault();
+                return new Photo()
+                       {
+                           RawPhoto = photo,
+                       };
+
             }
         }
 

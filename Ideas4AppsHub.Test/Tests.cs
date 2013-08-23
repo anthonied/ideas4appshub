@@ -75,6 +75,21 @@ namespace Ideas4AppsHub.Test
 
         }
 
+        [Test]
+        public void Can_build_bitmap_from_byte_array()
+        {
+            var business = new Business
+            {
+                Photo = new Photo
+                {
+                    RawPhoto = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 }
+                }
+            };
+
+            Assert.That(business.Photo.Bitmap, Is.Not.Null);
+        }
+
+        
 
 
 

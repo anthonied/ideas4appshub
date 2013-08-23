@@ -8,8 +8,9 @@
 <div class="page-header">
     <h2>Edit</h2>
 </div>
+<img src="@Url.Action("GenerateImage/" + Model.Business.Id)" alt="" />
 <table>
-    
+    <tr style="height:30px"></tr>
         <tr style="font-size:  16px  ;">
             <td style="width:200px; class="control-label">Name:</td>
             <td><input id="businessName" type="text" size="16" data-bind="value: nameValue, valueUpdate: 'afterkeydown'"/></td>
@@ -19,7 +20,7 @@
     
         <tr style="font-size:  16px">
             <td  class="control-label">Description:</td>
-            <td> <textarea class="form-control" id="businessDescription" data-bind="value: descriptionValue, valueUpdate: 'afterkeydown'"></textarea></textarea></td>
+            <td> <textarea class="form-control" id="businessDescription" data-bind="value: descriptionValue, valueUpdate: 'afterkeydown'"></textarea></td>
         </tr>
 
         <tr style="font-size:  16px">
@@ -113,6 +114,19 @@
 
 </table>
 
+<div class="modal hide fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <h3 @*class="modal-title"*@>New Business</h3>
+            </div>
+            <div class="modal-body">
+                <div data-bind="text: ErrorMessage, css: RegisterClassType"></div>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+            </div>
+</div>
+
 @section scripts{
 <script>
     var viewModel = @(Html.Raw(Json.Encode(Model)))
@@ -149,9 +163,29 @@
     }
 
     guid = ko.observable();
+    ErrorMessage = ko.observable();
+    RegisterClassType = ko.observable();
+
     function handleRegisterResponse(response) {
-        //$("#uploadPhotoBtn").click();
-        changeLocation("/Admin");
+        busyViewModel.IsBusy(false);
+
+        ErrorMessage(response.Message);
+
+        if (!response.isOk) {
+            RegisterClassType("alert alert-error");
+            $('#resultsModal').modal({ backdrop: 'static', show: true });
+            return;
+        }
+        else {
+
+            guid(response.projectId);
+            RegisterClassType("alert alert-success");
+
+            $('#resultsModal').modal({ backdrop: 'static', show: true });
+        }
+
+        $("#uploadPhotoBtn").click();
+        $('#resultsModal').on('hidden', function () { changeLocation("/Admin") });
     }
 
     ko.applyBindings(new businessesEditViewModel(), document.getElementById("bodyDiv"));
