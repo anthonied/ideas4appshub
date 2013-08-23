@@ -366,6 +366,7 @@
   <ItemGroup>
     <Content Include="Content\Custom\Web.config" />
     <Content Include="Scripts\Custom\Web.config" />
+    <Content Include="PostDeploy.ps1" />
     <None Include="Scripts\jquery-2.0.2.min.map" />
     <Content Include="Views\Shared\_busyIndicator.cshtml" />
     <Content Include="Views\Admin\ManageBusiness.cshtml" />
