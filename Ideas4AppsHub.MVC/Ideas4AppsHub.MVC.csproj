@@ -229,13 +229,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\AppSettings.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_Data\ConnectionStrings.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_Data\SmtpMailSettings.xml" />
     <Content Include="Content\Custom\body.css" />
     <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\bootstrap-responsive.css" />
